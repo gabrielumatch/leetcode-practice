@@ -10,6 +10,7 @@ interface CategoryProgress {
 }
 
 const CATEGORIES = [
+    { name: 'Sorting Algorithms', folder: 'sorting-algorithms' },
     { name: 'Two Pointers', folder: 'two-pointer' },
     { name: 'Sliding Window', folder: 'sliding-window' },
     { name: 'Fast & Slow Pointers', folder: 'fast-slow-pointers' },
@@ -17,6 +18,7 @@ const CATEGORIES = [
     { name: 'Hash Tables', folder: 'hash-tables' },
     { name: 'Linked Lists', folder: 'linked-lists' },
     { name: 'Stacks & Queues', folder: 'stacks-queues' },
+    { name: 'Tree Fundamentals', folder: 'tree-fundamentals' },
     { name: 'Trees (DFS/BFS)', folder: 'trees' },
     { name: 'Binary Search Trees', folder: 'binary-search-trees' },
     { name: 'Heaps', folder: 'heaps' },
@@ -29,7 +31,7 @@ const CATEGORIES = [
 
 function countSolvedProblems(categoryFolder: string, rootDir: string): number {
     const categoryPath = join(rootDir, categoryFolder);
-    
+
     if (!existsSync(categoryPath)) {
         return 0;
     }
@@ -37,18 +39,18 @@ function countSolvedProblems(categoryFolder: string, rootDir: string): number {
     try {
         const entries = readdirSync(categoryPath, { withFileTypes: true });
         const problemFolders = entries.filter(e => e.isDirectory());
-        
+
         let solvedCount = 0;
         for (const folder of problemFolders) {
             const problemPath = join(categoryPath, folder.name);
             const glob = new Glob('solution-*.ts');
             const solutions = Array.from(glob.scanSync(problemPath));
-            
+
             if (solutions.length > 0) {
                 solvedCount++;
             }
         }
-        
+
         return solvedCount;
     } catch {
         return 0;
@@ -70,7 +72,7 @@ function generateProgressLine(category: CategoryProgress): string {
 export async function updateCategoryProgress(categoryFolder: string, rootDir: string = process.cwd()): Promise<void> {
     const categoryPath = join(rootDir, categoryFolder);
     const readmePath = join(categoryPath, 'README.md');
-    
+
     if (!existsSync(readmePath)) {
         return;
     }
@@ -85,7 +87,7 @@ export async function updateCategoryProgress(categoryFolder: string, rootDir: st
 
     // Replace progress line
     const progressRegex = /## Progress: \d+\/\d+ [✅⬜]+/;
-    
+
     if (progressRegex.test(readme)) {
         readme = readme.replace(progressRegex, newProgressLine);
         writeFileSync(readmePath, readme, 'utf-8');
@@ -94,7 +96,7 @@ export async function updateCategoryProgress(categoryFolder: string, rootDir: st
 
 export async function updateProgress(rootDir: string = process.cwd()): Promise<void> {
     const readmePath = join(rootDir, 'README.md');
-    
+
     if (!existsSync(readmePath)) {
         console.warn('⚠️  README.md not found in root, skipping progress update');
         return;
@@ -128,7 +130,7 @@ export async function updateProgress(rootDir: string = process.cwd()): Promise<v
 
     // Replace progress section
     const progressRegex = /## 📋 Progress\n\n[\s\S]*?\n\n\*\*Total:.*?\n/;
-    
+
     if (progressRegex.test(readme)) {
         readme = readme.replace(progressRegex, newProgressSection + '\n');
         writeFileSync(readmePath, readme, 'utf-8');

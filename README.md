@@ -1,11 +1,12 @@
 # 🎯 LeetCode Practice
 
-150 problems across 15 patterns to master algorithms and data structures.
+170 problems across 17 patterns to master algorithms and data structures.
 
 ---
 
 ## 📋 Progress
 
+- [ ] **[Sorting Algorithms](./sorting-algorithms/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Two Pointers](./two-pointer/)** (3/10) ✅✅✅⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Sliding Window](./sliding-window/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Fast & Slow Pointers](./fast-slow-pointers/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
@@ -13,6 +14,7 @@
 - [ ] **[Hash Tables](./hash-tables/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Linked Lists](./linked-lists/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Stacks & Queues](./stacks-queues/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+- [ ] **[Tree Fundamentals](./tree-fundamentals/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Trees (DFS/BFS)](./trees/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Binary Search Trees](./binary-search-trees/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Heaps](./heaps/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
@@ -22,7 +24,7 @@
 - [ ] **[Greedy](./greedy/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Bit Manipulation](./bit-manipulation/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 
-**Total: 3/150** (2.00%)
+**Total: 3/170** (1.76%)
 
 ---
 
@@ -55,4 +57,4 @@ bun two-pointer/1-palindrome/index.ts
 
 Each category README has 10 problems with examples and constraints.
 
-**Start here:** Two Pointers or Hash Tables
+**Start here:** Sorting Algorithms, Tree Fundamentals, Two Pointers, or Hash Tables
