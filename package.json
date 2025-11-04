@@ -3,8 +3,17 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
+    "check": "bun run type-check && bun run lint"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
+    "eslint": "^9.39.1"
   },
   "peerDependencies": {
     "typescript": "^5"
