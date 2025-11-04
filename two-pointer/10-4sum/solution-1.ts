@@ -1,5 +1,5 @@
 export const description = `
-**Two Pointers - Nested Loops**
+**Two Pointers - Nested Loops (Otimizado)**
 
 **O Problema (em português simples):**
 Encontrar 4 números DIFERENTES no array que somam exatamente o target.

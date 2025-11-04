@@ -6,7 +6,14 @@ Ao invés de fixar 2 números manualmente, usa RECURSÃO para reduzir o problema
 - 4Sum → precisa de 4 números
 - Fixa 1 número → agora precisa de 3 números (3Sum)
 - Fixa mais 1 número → agora precisa de 2 números (2Sum)
-- 2Sum resolve com two pointers!
+- 2Sum resolve com two pointers! (CASO BASE - para aqui!)
+
+**Por que paramos em 2Sum?**
+- 2Sum é o menor problema que faz sentido: "encontrar 2 números que somam X"
+- 1Sum seria: "encontrar 1 número igual a X" → isso é só buscar no array, não é "soma"
+- 0Sum não existe: "encontrar 0 números que somam X" → não faz sentido
+- Two pointers é a solução ÓTIMA para 2Sum (O(n) tempo, O(1) espaço)
+- Continuar recursão além disso seria ineficiente e desnecessário!
 
 **Vantagem:**
 Funciona para QUALQUER k (2Sum, 3Sum, 4Sum, 5Sum, etc.) sem mudar a lógica!
@@ -43,9 +50,43 @@ Target: 0
 - Adiciona o -2: [[-2, -1, 1, 2]] ✓
 
 **A Mágica:**
-A função kSum funciona para QUALQUER k:
-- k=2: usa two pointers
-- k>2: fixa 1 número e chama kSum(k-1)
+A função kSum funciona para QUALQUER k >= 2:
+- **k=2 (CASO BASE)**: usa two pointers - para aqui!
+- **k>2 (RECURSÃO)**: fixa 1 número e chama kSum(k-1)
+
+**Por que k=2 é o caso base?**
+- 2Sum é o menor problema "de soma" que faz sentido
+- Two pointers é a solução mais eficiente (O(n) tempo)
+- Se continuássemos para k=1: seria apenas "buscar número X" → não é soma!
+- Se continuássemos para k=0: não existe "0 números que somam X"
+
+**Árvore de Recursão (visual):**
+
+Nível 1: kSum(0, 4, 0) - "4 números que somam 0"
+  |
+  +-- Fixa -2 → Nível 2: kSum(1, 3, 2) - "3 números que somam 2"
+       |
+       +-- Fixa -1 → Nível 3: kSum(2, 2, 3) - "2 números que somam 3"
+            |
+            +-- Two pointers encontra: [1, 2]
+            +-- Retorna: [[-1, 1, 2]]
+       |
+       +-- Fixa 0 → Nível 3: kSum(3, 2, 2) - "2 números que somam 2"
+            |
+            +-- Two pointers encontra: [0, 2]
+            +-- Retorna: [[0, 0, 2]]
+  |
+  +-- Fixa -1 → Nível 2: kSum(2, 3, 1) - "3 números que somam 1"
+       +-- ... (continua recursivamente)
+
+**Por que usar recursão?**
+- **Código mais limpo**: uma função para todos os kSum
+- **Reutilizável**: funciona para 2Sum, 3Sum, 4Sum, 5Sum, etc.
+- **Fácil de entender**: divide o problema em subproblemas menores
+
+**Diferença da Solution 1:**
+- Solution 1: fixa 2 números com loops, depois usa two pointers
+- Solution 2: fixa 1 número por vez, recursivamente, até chegar em 2Sum
 
 **Complexidade:** O(n³) tempo, O(k) espaço (recursão)
 `;
