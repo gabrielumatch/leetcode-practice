@@ -84,7 +84,18 @@ ${(() => {
                 const rank = ['🥇', '🥈', '🥉'][idx] || String(idx + 1);
                 const values = d.perTestCase.map((b, tcIdx) => {
                     const fastest = fastestPerTC[tcIdx];
+
+                    // Handle zero/very small times
+                    if (fastest === 0 || b.avgTime === 0) {
+                        return '~0ms 🔥';
+                    }
+
                     const diff = ((b.avgTime / fastest - 1) * 100);
+
+                    // Handle Infinity/NaN
+                    if (!isFinite(diff)) {
+                        return 'N/A';
+                    }
 
                     let symbol = '';
                     if (diff < 5) symbol = '🔥';
@@ -102,7 +113,6 @@ ${(() => {
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
 **Methodology:**
-- Each test case input is repeated 10x for realistic size
 - Each solution runs 10000 iterations per test case
 - Comparisons use **trimmed mean** (95% best runs, removes outliers)
 - This eliminates GC pauses and context switch noise

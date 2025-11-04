@@ -75,8 +75,8 @@ export async function runBenchmark(directory: string) {
         // Run benchmark for ALL test cases (not just first one)
         const benchDetails = passSolutions.map(({ name, fn }) => {
             const allBenchmarks = testCases.map((tc: { input: unknown; expected: unknown }) => {
-                const input = typeof tc.input === 'string' ? tc.input.repeat(10) : tc.input;
-                return benchmark(name, () => fn(input), 10000);
+                // Use original test case input (no artificial repeat)
+                return benchmark(name, () => fn(tc.input), 10000);
             });
 
             // Calculate average across all test cases (using trimmed mean to ignore outliers)
@@ -119,8 +119,21 @@ export async function runBenchmark(directory: string) {
             const row: Record<string, string> = { Solution: name };
             perTestCase.forEach((bench: { trimmedAvg: number }, idx: number) => {
                 const fastest = fastestPerTC[idx];
+
+                // Handle zero/very small times
+                if (fastest === 0 || bench.trimmedAvg === 0) {
+                    row[(testCases[idx] as { label?: string }).label || `TC${idx + 1}`] = '~0ms 🔥';
+                    return;
+                }
+
                 const diff = ((bench.trimmedAvg / fastest - 1) * 100);
                 const label = (testCases[idx] as { label?: string }).label || `TC${idx + 1}`;
+
+                // Handle Infinity/NaN
+                if (!isFinite(diff)) {
+                    row[label] = 'N/A';
+                    return;
+                }
 
                 let symbol = '';
                 if (diff < 5) symbol = '🔥'; // fastest
