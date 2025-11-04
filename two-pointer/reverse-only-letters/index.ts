@@ -1,6 +1,7 @@
 import { benchmark, measureTime } from '../../utils/performance';
+import { generateReadme } from '../../utils/markdown';
 import { testCases } from './test-cases';
-import { Glob } from 'bun';
+import { Glob, write } from 'bun';
 import path from 'path';
 
 // Get problem name from folder name
@@ -69,6 +70,11 @@ if (passSolutions.length > 0) {
         'Max Time': `${r.maxTime.toFixed(4)}ms`,
         'vs Fastest': i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%`,
     })));
+
+    // Generate README.md
+    const markdown = generateReadme(problemName, testResults, benchResults);
+    await write(path.join(import.meta.dir, 'README.md'), markdown);
+    console.log('\n📝 README.md generated');
 }
 
 console.log();
