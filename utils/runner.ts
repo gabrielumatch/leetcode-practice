@@ -34,6 +34,7 @@ export async function runBenchmark(directory: string) {
                 name: `Solution ${number}`,
                 fn: module.solution,
                 description: module.description || 'No description provided',
+                file,
             };
         })
     );
@@ -44,7 +45,7 @@ export async function runBenchmark(directory: string) {
     // Test all solutions
     console.log('🧪 TEST RESULTS');
     console.log('─'.repeat(80));
-    const testResults = solutions.map(({ name, fn, description }) => {
+    const testResults = solutions.map(({ name, fn, description, file }) => {
         const results = testCases.map((tc: { input: unknown; expected: unknown }) => {
             const { result, time } = measureTime(() => fn(tc.input));
             const pass = JSON.stringify(result) === JSON.stringify(tc.expected);
@@ -54,7 +55,7 @@ export async function runBenchmark(directory: string) {
         const totalTests = results.length;
         const allPass = passedCount === totalTests;
         const avgTime = results.reduce((sum: number, r: { pass: boolean; time: number }) => sum + r.time, 0) / results.length;
-        return { name, pass: allPass, passedCount, totalTests, avgTime, description };
+        return { name, pass: allPass, passedCount, totalTests, avgTime, description, file };
     });
 
     console.table(testResults.map(r => ({

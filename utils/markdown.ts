@@ -5,6 +5,7 @@ interface TestResult {
     totalTests: number;
     avgTime: number;
     description: string;
+    file: string;
 }
 
 interface BenchResult {
@@ -50,7 +51,7 @@ ${benchResults.map((r, i) => {
 ## 📝 Solution Descriptions
 
 ${testResults.map(r =>
-        `### ${r.name}\n${r.description}`
+        `### ${r.name} — [\`${r.file}\`](./${r.file})\n${r.description}`
     ).join('\n\n')}
 
 ## 📊 Conclusion
