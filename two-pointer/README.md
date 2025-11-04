@@ -21,12 +21,14 @@ Explanation: "raceacar" is not a palindrome.
 
 Input: s = " "
 Output: true
-Explanation: Empty string is a valid palindrome.
+Explanation: After removing non-alphanumeric, becomes empty. Empty strings are valid palindromes.
 ```
 
 **Constraints:**
 - `1 <= s.length <= 2 * 10^5`
 - `s` consists only of printable ASCII characters
+
+**Note:** An empty string (after processing) is considered a palindrome.
 
 ---
 
