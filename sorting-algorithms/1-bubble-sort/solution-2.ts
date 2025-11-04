@@ -14,13 +14,22 @@ export function solution(nums: number[]): number[] {
     console.log(nums);
 
     for (let i = 0; i < size; i++) {
-        // for (let j = 1; j < size - i; j++) {
-        // TODO: Implementar comparação e troca de elementos
-        if (nums[i] < nums[i + 1]) {
-            [nums[i], nums[i + 1]] = [nums[i + 1], nums[i]];
+        let swapped = false;
+
+        for (let j = 0; j < size - 1 - i; j++) {
+            // Se o elemento atual é MAIOR que o próximo, troca (ordem crescente)
+            if (nums[j] > nums[j + 1]) {
+                [nums[j], nums[j + 1]] = [nums[j + 1], nums[j]];
+                swapped = true; // Marca que houve troca
+            }
         }
-        // }
+
+        // Otimização: se não houve troca nesta passada, o array já está ordenado!
+        if (!swapped) {
+            break; // Para o loop mais cedo
+        }
     }
+
     console.log(nums);
     return nums;
 }

@@ -36,9 +36,49 @@ function parseArgs(): BenchmarkOptions {
     return options;
 }
 
+function loadDebugConfig(rootDir: string): BenchmarkOptions | undefined {
+    const { readFileSync, existsSync } = require('fs');
+    const { join } = require('path');
+    const debugConfigPath = join(rootDir, 'utils/debug-config.json');
+
+    if (existsSync(debugConfigPath)) {
+        try {
+            const config = JSON.parse(readFileSync(debugConfigPath, 'utf-8'));
+            if (config.solutionNumber !== null || config.testCaseIndex !== null || config.skipBenchmark) {
+                return {
+                    solutionNumber: config.solutionNumber ?? undefined,
+                    testCaseIndex: config.testCaseIndex ?? undefined,
+                    skipBenchmark: config.skipBenchmark || undefined,
+                };
+            }
+        } catch (e) {
+            // Ignore parse errors
+        }
+    }
+    return undefined;
+}
+
 export async function runBenchmark(directory: string, options?: BenchmarkOptions) {
-    // Se não passou opções, tenta parsear dos argumentos da linha de comando
-    const opts = options || parseArgs();
+    // Priority: explicit options > debug config file > command line args
+    let opts = options;
+    
+    if (!opts) {
+        // Try debug config file first (for debugger when args don't work)
+        const rootDir = path.resolve(directory, '../..');
+        opts = loadDebugConfig(rootDir);
+        
+        if (opts) {
+            console.log('🔧 Using debug config:', opts);
+        } else {
+            // Fallback to command line args
+            opts = parseArgs();
+        }
+    }
+    
+    // Debug: confirm what options we're using
+    if (opts.solutionNumber !== undefined || opts.testCaseIndex !== undefined || opts.skipBenchmark) {
+        console.log(`\n🔧 Using options: solution=${opts.solutionNumber ?? 'all'}, testCase=${opts.testCaseIndex ?? 'all'}, skipBenchmark=${opts.skipBenchmark ?? false}\n`);
+    }
     // Get problem name from folder name
     const problemName = path.basename(directory).split('-').map(w =>
         w.charAt(0).toUpperCase() + w.slice(1)
@@ -98,7 +138,8 @@ export async function runBenchmark(directory: string, options?: BenchmarkOptions
         }
         filteredTestCases = [testCases[opts.testCaseIndex]];
         const tc = filteredTestCases[0] as { label?: string };
-        console.log(`🔍 Filtered to test case ${opts.testCaseIndex}: ${tc.label || `Test Case ${opts.testCaseIndex + 1}`}\n`);
+        console.log(`🔍 Filtered to test case ${opts.testCaseIndex}: ${tc.label || `Test Case ${opts.testCaseIndex + 1}`}`);
+        console.log(`📊 Will run ${filteredTestCases.length} test case(s) instead of ${testCases.length}\n`);
     }
 
     // Test all solutions
@@ -106,15 +147,24 @@ export async function runBenchmark(directory: string, options?: BenchmarkOptions
     console.log('─'.repeat(80));
     const testResults = solutions.map(({ name, fn, description, file }) => {
         const results = filteredTestCases.map((tc: { input: unknown; expected: unknown; label?: string }, idx: number) => {
-            const { result, time } = measureTime(() => fn(tc.input));
-            const pass = JSON.stringify(result) === JSON.stringify(tc.expected);
-
-            // Show detailed result for debug mode (single test case)
+            // Debug: confirm we're only running filtered test cases
+            if (opts.testCaseIndex !== undefined && idx > 0) {
+                console.warn(`⚠️  WARNING: Running test case ${idx} but should only run one!`);
+            }
+            // Show detailed result for debug mode (single test case) - BEFORE execution
             if (opts.testCaseIndex !== undefined) {
                 const tcLabel = (tc as { label?: string }).label || `Test Case ${idx + 1}`;
                 console.log(`\n📋 ${tcLabel}:`);
                 console.log(`   Input:    ${JSON.stringify(tc.input)}`);
                 console.log(`   Expected: ${JSON.stringify(tc.expected)}`);
+                console.log(`   Running solution...\n`);
+            }
+
+            const { result, time } = measureTime(() => fn(tc.input));
+            const pass = JSON.stringify(result) === JSON.stringify(tc.expected);
+
+            // Show detailed result for debug mode (single test case) - AFTER execution
+            if (opts.testCaseIndex !== undefined) {
                 console.log(`   Got:      ${JSON.stringify(result)}`);
                 console.log(`   Status:   ${pass ? '✅ PASS' : '❌ FAIL'}`);
                 console.log(`   Time:     ${time.toFixed(4)}ms`);
@@ -142,8 +192,26 @@ export async function runBenchmark(directory: string, options?: BenchmarkOptions
     if (passSolutions.length > 0 && !opts.skipBenchmark) {
         console.log('\n⚡ PERFORMANCE BENCHMARK (Round-Robin)');
         console.log('─'.repeat(80));
+        console.log('⚠️  Note: console.log from solutions are suppressed during benchmark\n');
 
         const iterations = 100000;
+
+        // Suppress console.log during benchmark
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        const suppressedLogs: any[] = [];
+        
+        // Override console methods to suppress output during benchmark
+        console.log = (...args: any[]) => {
+            suppressedLogs.push(['log', ...args]);
+        };
+        console.error = (...args: any[]) => {
+            suppressedLogs.push(['error', ...args]);
+        };
+        console.warn = (...args: any[]) => {
+            suppressedLogs.push(['warn', ...args]);
+        };
 
         // Initialize time storage: [solutionIdx][testCaseIdx][iterationIdx]
         const times: number[][][] = passSolutions.map(() =>
@@ -272,6 +340,11 @@ export async function runBenchmark(directory: string, options?: BenchmarkOptions
             });
 
         console.table(sortedDetailTable);
+
+        // Restore original console methods
+        console.log = originalLog;
+        console.error = originalError;
+        console.warn = originalWarn;
 
         // Generate README.md (skip in debug mode)
         if (!opts.testCaseIndex && !opts.solutionNumber) {

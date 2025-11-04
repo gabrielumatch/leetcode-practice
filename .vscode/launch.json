@@ -1,0 +1,70 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "bun",
+            "request": "launch",
+            "name": "Debug Current Problem",
+            "program": "${relativeFileDirname}/index.ts",
+            "args": [
+                "--solution",
+                "${input:solutionNumber}",
+                "--test-case",
+                "0",
+                "--skip-benchmark"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "watchMode": false
+        },
+        {
+            "name": "Debug Current Problem (Choose Test)",
+            "type": "bun",
+            "request": "launch",
+            "program": "${relativeFileDirname}/index.ts",
+            "args": [
+                "--solution",
+                "${input:solutionNumber}",
+                "--test-case",
+                "${input:testCaseIndex}",
+                "--skip-benchmark"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "watchMode": false
+        },
+        {
+            "name": "Run All Tests",
+            "type": "bun",
+            "request": "launch",
+            "program": "${relativeFileDirname}/index.ts",
+            "args": ["--skip-benchmark"],
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "watchMode": false
+        },
+        {
+            "name": "Run with Benchmark",
+            "type": "bun",
+            "request": "launch",
+            "program": "${relativeFileDirname}/index.ts",
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "watchMode": false
+        }
+    ],
+    "inputs": [
+        {
+            "id": "solutionNumber",
+            "type": "promptString",
+            "description": "Solution number",
+            "default": "1"
+        },
+        {
+            "id": "testCaseIndex",
+            "type": "promptString",
+            "description": "Test case index (0-based)",
+            "default": "0"
+        }
+    ]
+}
