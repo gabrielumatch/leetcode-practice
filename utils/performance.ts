@@ -128,9 +128,17 @@ export function measureMemory<T>(fn: () => T): {
 
     const before = process.memoryUsage();
     const result = fn();
+
+    // Keep result in memory to prevent optimization
+    const resultStr = JSON.stringify(result);
+
     const after = process.memoryUsage();
 
-    const memoryUsed = after.heapUsed - before.heapUsed;
+    // Calculate actual memory used
+    const memoryUsed = Math.max(0, after.heapUsed - before.heapUsed);
+
+    // Prevent optimization by "using" resultStr
+    if (resultStr.length < 0) console.log(resultStr);
 
     return {
         result,
