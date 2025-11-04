@@ -1,8 +1,10 @@
 //Leet Code: Reverse Only Letters
 
-console.log(reverseOnlyLetters('ab-cd')); //Simple "ab-cd" -> "dc-ba"
-console.log(reverseOnlyLetters('a--bc')); //Simple "a--bc" -> "c--ba"
-console.log(reverseOnlyLetters('Test1ng-Leet=code-Q!')); //Simple "Test1ng-Leet=code-Q!" -> "Qedo-c1tse-Lgn=teT!"
+console.log(reverseOnlyLetters('ab-cd')); //"ab-cd" -> "dc-ba"
+console.log(reverseOnlyLetters('a--bc')); //"a--bc" -> "c--ba"
+console.log(reverseOnlyLetters('Test1ng-Leet=code-Q!')); //"Test1ng-Leet=code-Q!" -> "Qedo-c1tse-Lgn=teT!"
+console.log(reverseOnlyLetters('a')); //"Test1ng-Leet=code-Q!" -> "Qedo-c1tse-Lgn=teT!"
+console.log(reverseOnlyLetters('')); //"Test1ng-Leet=code-Q!" -> "Qedo-c1tse-Lgn=teT!"
 
 function isLetter(char: string) {
     return /^[a-zA-Z]$/.test(char);

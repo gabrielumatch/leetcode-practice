@@ -6,7 +6,7 @@ A structured approach to mastering algorithms and data structures through 150 ca
 
 ## 📋 Progress Tracker
 
-- [ ] **[Two Pointers](./two-pointer/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+- [ ] **[Two Pointers](./two-pointer/)** (1/10) ✅⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Sliding Window](./sliding-window/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Fast & Slow Pointers](./fast-slow-pointers/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Binary Search](./binary-search/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
@@ -22,7 +22,7 @@ A structured approach to mastering algorithms and data structures through 150 ca
 - [ ] **[Greedy](./greedy/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Bit Manipulation](./bit-manipulation/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 
-**Total Progress: 0/150** (0%)
+**Total Progress: 1/150** (0.67%)
 
 ---
 

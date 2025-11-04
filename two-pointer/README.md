@@ -1,6 +1,6 @@
 # Two Pointers Problems
 
-## Progress: 0/10 ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+## Progress: 1/10 ✅⬜⬜⬜⬜⬜⬜⬜⬜⬜
 
 ---
 
@@ -56,8 +56,8 @@ Output: [1,2]
 
 ---
 
-## 3. Reverse Only Letters (Easy)
-**LeetCode #917**
+## 3. ✅ Reverse Only Letters (Easy)
+**LeetCode #917** | **Solved** ✓
 
 Given a string `s`, reverse the string according to the following rules: all non-letter characters stay in their original position, and all letters reverse their positions.
 
