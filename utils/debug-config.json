@@ -1,6 +1,7 @@
 {
-  "solutionNumber": 2,
-  "testCaseIndex": 0,
-  "skipBenchmark": true
+  "problemPath": "sorting-algorithms/1-bubble-sort",
+  "solutionNumber": 3,
+  "testCaseIndex": null,
+  "skipBenchmark": false
 }
 

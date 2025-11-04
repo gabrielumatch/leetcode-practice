@@ -1,5 +1,6 @@
 export const description = `
-
+Complexidade 0(n^2)
+Space Complexity 0(1)
 `;
 
 /**

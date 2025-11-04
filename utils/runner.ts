@@ -36,14 +36,22 @@ function parseArgs(): BenchmarkOptions {
     return options;
 }
 
-function loadDebugConfig(rootDir: string): BenchmarkOptions | undefined {
+function loadDebugConfig(rootDir: string, currentProblemDir: string): BenchmarkOptions | undefined {
     const { readFileSync, existsSync } = require('fs');
-    const { join } = require('path');
+    const { join, relative } = require('path');
     const debugConfigPath = join(rootDir, 'utils/debug-config.json');
 
     if (existsSync(debugConfigPath)) {
         try {
             const config = JSON.parse(readFileSync(debugConfigPath, 'utf-8'));
+            
+            // Check if config is for this specific problem (or global if no problemPath specified)
+            const problemPath = relative(rootDir, currentProblemDir).replace(/\\/g, '/');
+            if (config.problemPath && config.problemPath !== problemPath) {
+                // Config is for a different problem, ignore it
+                return undefined;
+            }
+            
             if (config.solutionNumber !== null || config.testCaseIndex !== null || config.skipBenchmark) {
                 return {
                     solutionNumber: config.solutionNumber ?? undefined,
@@ -59,19 +67,23 @@ function loadDebugConfig(rootDir: string): BenchmarkOptions | undefined {
 }
 
 export async function runBenchmark(directory: string, options?: BenchmarkOptions) {
-    // Priority: explicit options > debug config file > command line args
+    // Priority: explicit options > command line args > debug config file
     let opts = options;
     
     if (!opts) {
-        // Try debug config file first (for debugger when args don't work)
-        const rootDir = path.resolve(directory, '../..');
-        opts = loadDebugConfig(rootDir);
+        // First try command line args
+        opts = parseArgs();
         
-        if (opts) {
-            console.log('🔧 Using debug config:', opts);
-        } else {
-            // Fallback to command line args
-            opts = parseArgs();
+        // Only use debug config if no command line args were provided
+        // (for debugger when args don't work)
+        if (!opts.solutionNumber && opts.testCaseIndex === undefined && !opts.skipBenchmark) {
+            const rootDir = path.resolve(directory, '../..');
+            const debugOpts = loadDebugConfig(rootDir, directory);
+            
+            if (debugOpts) {
+                opts = debugOpts;
+                console.log('🔧 Using debug config:', opts);
+            }
         }
     }
     

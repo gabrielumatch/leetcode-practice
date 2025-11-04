@@ -1,20 +1,20 @@
 # 1 Bubble Sort
 
-**Last Updated:** Nov 4, 2025, 3:57 AM
+**Last Updated:** Nov 4, 2025, 4:01 AM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 5/5 | 0.0224ms |
-| Solution 2 | ✅ Pass | 5/5 | 0.3541ms |
+| Solution 1 | ✅ Pass | 5/5 | 0.0241ms |
+| Solution 2 | ✅ Pass | 5/5 | 0.5992ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
 |------|----------|------------|-----|-----|-----|------------|
-| 🥇 | Solution 1 | 0.000098ms | 0.000400ms | 0.000000ms | 2.200700ms | - |
-| 🥈 | Solution 2 | 0.000124ms | 0.000600ms | 0.000000ms | 2.234800ms | +26.40% |
+| 🥇 | Solution 2 | 0.000039ms | 0.000100ms | 0.000000ms | 1.797900ms | - |
+| 🥈 | Solution 1 | 0.000046ms | 0.000200ms | 0.000000ms | 1.272700ms | +17.95% |
 
 **Metrics:**
 - **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers) - used for ranking
@@ -28,8 +28,8 @@
 
 | Rank | Solution | Example 1 | Example 2 | Single element | All same | Reverse order |
 |------|----------|----------|----------|----------|----------|----------|
-| 🥇 | Solution 1 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 |
-| 🥈 | Solution 2 | +33% ⚡ | +91% 📊 | +124% 📊 | +35% ⚡ | +35% ⚡ |
+| 🥇 | Solution 2 | +16% ⚡ | +43% ⚡ | +40% ⚡ | 0% 🔥 | +55% 📊 |
+| 🥈 | Solution 1 | 0% 🔥 | 0% 🔥 | 0% 🔥 | +9% ⚡ | 0% 🔥 |
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
@@ -82,11 +82,11 @@ Passada 3:
 
 ## 📊 Conclusion
 
-**Winner:** Solution 1 🥇
+**Winner:** Solution 2 🥇
 
-- **Fastest:** 0.0001ms average
-- **Slowest:** 0.0001ms average
-- **Difference:** 26.4% slower
+- **Fastest:** 0.0000ms average
+- **Slowest:** 0.0000ms average
+- **Difference:** 17.9% slower
 
 ---
 
