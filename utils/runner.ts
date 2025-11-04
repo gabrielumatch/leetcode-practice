@@ -1,4 +1,5 @@
-import { benchmark, measureTime } from './performance';
+import { measureTime } from './performance';
+import { performance } from 'perf_hooks';
 import { generateReadme } from './markdown';
 import { updateProgress, updateCategoryProgress } from './update-progress';
 import { Glob, write } from 'bun';
@@ -69,24 +70,67 @@ export async function runBenchmark(directory: string) {
     const passSolutions = solutions.filter((_, i) => testResults[i].pass);
 
     if (passSolutions.length > 0) {
-        console.log('\n⚡ PERFORMANCE BENCHMARK');
+        console.log('\n⚡ PERFORMANCE BENCHMARK (Round-Robin)');
         console.log('─'.repeat(80));
 
-        // Run benchmark for ALL test cases (not just first one)
-        const benchDetails = passSolutions.map(({ name, fn }) => {
-            const allBenchmarks = testCases.map((tc: { input: unknown; expected: unknown }) => {
-                // Use original test case input (no artificial repeat)
-                return benchmark(name, () => fn(tc.input), 10000);
+        const iterations = 40000;
+
+        // Initialize time storage: [solutionIdx][testCaseIdx][iterationIdx]
+        const times: number[][][] = passSolutions.map(() =>
+            testCases.map(() => [])
+        );
+
+        // Round-robin benchmark: alternate between solutions for fairness
+        console.log('⏱️  Running round-robin benchmark...');
+        for (let iter = 0; iter < iterations; iter++) {
+            for (let tcIdx = 0; tcIdx < testCases.length; tcIdx++) {
+                const tc = testCases[tcIdx] as { input: unknown; expected: unknown };
+
+                // Run each solution in sequence (round-robin)
+                for (let solIdx = 0; solIdx < passSolutions.length; solIdx++) {
+                    const { fn } = passSolutions[solIdx];
+                    const start = performance.now();
+                    fn(tc.input);
+                    const end = performance.now();
+                    times[solIdx][tcIdx].push(end - start);
+                }
+            }
+        }
+
+        // Calculate statistics for each solution
+        const benchDetails = passSolutions.map(({ name }, solIdx) => {
+            const perTestCase = testCases.map((_: unknown, tcIdx: number) => {
+                const tcTimes = times[solIdx][tcIdx];
+
+                // Sort for percentile calculation
+                const sorted = [...tcTimes].sort((a, b) => a - b);
+
+                // Statistics
+                const avgTime = tcTimes.reduce((sum, t) => sum + t, 0) / tcTimes.length;
+                const minTime = sorted[0];
+                const maxTime = sorted[sorted.length - 1];
+
+                // Trimmed mean (remove top 5% outliers)
+                const trimCount = Math.floor(sorted.length * 0.05);
+                const trimmed = sorted.slice(0, sorted.length - trimCount);
+                const trimmedAvg = trimmed.reduce((sum, t) => sum + t, 0) / trimmed.length;
+
+                // Percentiles
+                const p50 = sorted[Math.floor(sorted.length * 0.50)];
+                const p95 = sorted[Math.floor(sorted.length * 0.95)];
+                const p99 = sorted[Math.floor(sorted.length * 0.99)];
+
+                return { avgTime, trimmedAvg, minTime, maxTime, p50, p95, p99 };
             });
 
-            // Calculate average across all test cases (using trimmed mean to ignore outliers)
-            const avgTime = allBenchmarks.reduce((sum: number, b: { trimmedAvg: number }) => sum + b.trimmedAvg, 0) / allBenchmarks.length;
-            const minTime = Math.min(...allBenchmarks.map((b: { minTime: number }) => b.minTime));
-            const maxTime = Math.max(...allBenchmarks.map((b: { maxTime: number }) => b.maxTime));
-            const p95 = Math.max(...allBenchmarks.map((b: { p95: number }) => b.p95));
-            const p99 = Math.max(...allBenchmarks.map((b: { p99: number }) => b.p99));
+            // Average across all test cases
+            const avgTime = perTestCase.reduce((sum: number, b: { trimmedAvg: number }) => sum + b.trimmedAvg, 0) / perTestCase.length;
+            const minTime = Math.min(...perTestCase.map((b: { minTime: number }) => b.minTime));
+            const maxTime = Math.max(...perTestCase.map((b: { maxTime: number }) => b.maxTime));
+            const p95 = Math.max(...perTestCase.map((b: { p95: number }) => b.p95));
+            const p99 = Math.max(...perTestCase.map((b: { p99: number }) => b.p99));
 
-            return { name, avgTime, minTime, maxTime, p95, p99, perTestCase: allBenchmarks };
+            return { name, avgTime, minTime, maxTime, p95, p99, perTestCase };
         });
 
         const benchResults = benchDetails.map(({ name, avgTime, minTime, maxTime, p95, p99 }) => ({

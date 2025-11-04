@@ -113,9 +113,10 @@ ${(() => {
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
 **Methodology:**
-- Each solution runs 10000 iterations per test case
+- **Round-robin execution**: Solutions alternate in each iteration (fairness!)
+- 10000 iterations per test case (all solutions face same conditions)
 - Comparisons use **trimmed mean** (95% best runs, removes outliers)
-- This eliminates GC pauses and context switch noise
+- This eliminates GC pauses, cache effects, and context switch noise
 ` : ''}
 
 ## 📝 Solution Descriptions
