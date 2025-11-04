@@ -1,5 +1,6 @@
 import { benchmark, measureTime } from './performance';
 import { generateReadme } from './markdown';
+import { updateProgress } from './update-progress';
 import { Glob, write } from 'bun';
 import path from 'path';
 
@@ -89,6 +90,10 @@ export async function runBenchmark(directory: string) {
         await write(path.join(directory, 'README.md'), markdown);
         console.log('\n📝 README.md generated');
     }
+
+    // Update progress in root README
+    const rootDir = path.resolve(directory, '../..');
+    await updateProgress(rootDir);
 
     console.log();
 }
