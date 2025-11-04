@@ -1,0 +1,10 @@
+/**
+ * Minimum Height Trees
+ * LeetCode #310
+ */
+
+export const testCases = [
+    { input: { n: 4, edges: [[1, 0], [1, 2], [1, 3]] }, expected: [1], label: 'Example 1' },
+    { input: { n: 6, edges: [[3, 0], [3, 1], [3, 2], [3, 4], [5, 4]] }, expected: [3, 4], label: 'Example 2' },
+];
+
