@@ -1,8 +1,51 @@
 export const description = `
 **Recursive kSum - Generalization**
 
-Abordagem recursiva que generaliza para kSum.
-Reduz o problema: 4Sum → 3Sum → 2Sum (two pointers).
+**A Ideia (em português simples):**
+Ao invés de fixar 2 números manualmente, usa RECURSÃO para reduzir o problema:
+- 4Sum → precisa de 4 números
+- Fixa 1 número → agora precisa de 3 números (3Sum)
+- Fixa mais 1 número → agora precisa de 2 números (2Sum)
+- 2Sum resolve com two pointers!
+
+**Vantagem:**
+Funciona para QUALQUER k (2Sum, 3Sum, 4Sum, 5Sum, etc.) sem mudar a lógica!
+
+**Exemplo Passo a Passo:**
+
+Array: [1, 0, -1, 0, -2, 2] ordenado: [-2, -1, 0, 0, 1, 2]
+Target: 0
+
+**Chamada inicial:** kSum(0, 4, 0)
+"Preciso de 4 números que somam 0"
+
+**Nível 1 (4Sum):**
+- Fixa i=0: valor -2
+- Agora precisa de 3 números que somam: 0 - (-2) = 2
+- Chama: kSum(1, 3, 2) ← "Preciso de 3 números que somam 2"
+
+  **Nível 2 (3Sum):**
+  - Fixa i=1: valor -1
+  - Agora precisa de 2 números que somam: 2 - (-1) = 3
+  - Chama: kSum(2, 2, 3) ← "Preciso de 2 números que somam 3"
+
+    **Nível 3 (2Sum):**
+    - Two pointers: left=2 (0), right=5 (2)
+    - Soma: 0 + 2 = 2 < 3 → left++
+    - left=3 (0), right=5 (2)
+    - Soma: 0 + 2 = 2 < 3 → left++
+    - left=4 (1), right=5 (2)
+    - Soma: 1 + 2 = 3 == 3 ✓
+    - Retorna: [[1, 2]]
+
+  - Adiciona o -1: [[-1, 1, 2]]
+
+- Adiciona o -2: [[-2, -1, 1, 2]] ✓
+
+**A Mágica:**
+A função kSum funciona para QUALQUER k:
+- k=2: usa two pointers
+- k>2: fixa 1 número e chama kSum(k-1)
 
 **Complexidade:** O(n³) tempo, O(k) espaço (recursão)
 `;

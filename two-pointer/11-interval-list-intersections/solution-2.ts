@@ -16,18 +16,18 @@ export function solution(input: {
 }): number[][] {
     const { firstList, secondList } = input;
     const result: number[][] = [];
-    
+
     for (const [start1, end1] of firstList) {
         for (const [start2, end2] of secondList) {
             const start = Math.max(start1, start2);
             const end = Math.min(end1, end2);
-            
+
             if (start <= end) {
                 result.push([start, end]);
             }
         }
     }
-    
+
     return result;
 }
 

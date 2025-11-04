@@ -1,17 +1,63 @@
 export const description = `
 **Two Pointers - Nested Loops**
 
-**O Problema:**
-Encontrar 4 números que somam target. Extensão do 3Sum, mas mais complexo.
+**O Problema (em português simples):**
+Encontrar 4 números DIFERENTES no array que somam exatamente o target.
 
-**Estratégia:**
-1. Ordena o array
-2. Dois loops externos (i, j) fixam os dois primeiros números
-3. Two pointers (left, right) para os dois últimos números
-4. Soma = nums[i] + nums[j] + nums[left] + nums[right]
-5. Se soma < target: left++
-6. Se soma > target: right--
-7. Se soma == target: adiciona quádrupla e pula duplicatas
+**Analogia:**
+Imagine você tem uma lista de preços e quer comprar 4 itens que somam exatamente R$ 100,00.
+Precisamos encontrar todas as combinações possíveis!
+
+**Exemplo Prático:**
+Array: [1, 0, -1, 0, -2, 2]
+Target: 0
+
+Queremos: 4 números que somam 0
+
+Possíveis respostas:
+- [-2, -1, 1, 2] → -2 + (-1) + 1 + 2 = 0 ✓
+- [-2, 0, 0, 2] → -2 + 0 + 0 + 2 = 0 ✓  
+- [-1, 0, 0, 1] → -1 + 0 + 0 + 1 = 0 ✓
+
+**Importante:**
+- Os 4 números devem vir de POSIÇÕES diferentes no array
+- Mas o VALOR pode repetir (ex: usar dois zeros)
+- Não pode usar a mesma posição duas vezes
+
+**Como funciona (passo a passo detalhado):**
+
+Array original: [1, 0, -1, 0, -2, 2]
+Array ordenado: [-2, -1, 0, 0, 1, 2]
+                 ↑   ↑   ↑  ↑  ↑  ↑
+                 0   1   2  3  4  5  (índices)
+
+**Passo 1: Fixa i=0 (valor -2), j=1 (valor -1)**
+   Queremos: target - (-2) - (-1) = 0 + 2 + 1 = 3
+   Precisamos de 2 números que somam 3
+
+   Two pointers: left=2 (valor 0), right=5 (valor 2)
+   - Soma: 0 + 2 = 2 < 3 → precisa aumentar → left++
+   
+   left=3 (valor 0), right=5 (valor 2)
+   - Soma: 0 + 2 = 2 < 3 → precisa aumentar → left++
+   
+   left=4 (valor 1), right=5 (valor 2)
+   - Soma: 1 + 2 = 3 == 3 ✓ ENCONTROU!
+   - Resposta: [-2, -1, 1, 2]
+
+**Passo 2: Fixa i=0 (valor -2), j=2 (valor 0)**
+   Queremos: target - (-2) - 0 = 0 + 2 = 2
+   Precisamos de 2 números que somam 2
+
+   Two pointers: left=3 (valor 0), right=5 (valor 2)
+   - Soma: 0 + 2 = 2 == 2 ✓ ENCONTROU!
+   - Resposta: [-2, 0, 0, 2]
+
+**E assim por diante...**
+
+**A ideia:**
+- Dois loops fixam os 2 primeiros números
+- Two pointers procuram os 2 últimos números que completam a soma
 
 **Complexidade:** O(n³) tempo, O(1) espaço (ou O(n) se contar ordenação)
 `;
