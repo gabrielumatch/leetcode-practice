@@ -1,6 +1,6 @@
 # Two Pointers Problems
 
-## Progress: 8/10 ✅✅✅✅✅✅✅✅⬜⬜
+## Progress: 11/11 ✅✅✅✅✅✅✅✅✅✅✅
 
 ---
 
@@ -211,26 +211,49 @@ Output: [0,1,2]
 
 ---
 
-## 10. Remove Nth Node From End of List (Medium)
-**LeetCode #19**
+## 10. 4Sum (Hard)
+**LeetCode #18**
 
-Given the `head` of a linked list, remove the `nth` node from the end of the list and return its head.
+Given an array `nums` of `n` integers, return an array of all the unique quadruplets `[nums[a], nums[b], nums[c], nums[d]]` such that:
+- `0 <= a, b, c, d < n`
+- `a`, `b`, `c`, and `d` are distinct
+- `nums[a] + nums[b] + nums[c] + nums[d] == target`
 
 **Examples:**
 ```
-Input: head = [1,2,3,4,5], n = 2
-Output: [1,2,3,5]
+Input: nums = [1,0,-1,0,-2,2], target = 0
+Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
 
-Input: head = [1], n = 1
-Output: []
-
-Input: head = [1,2], n = 1
-Output: [1]
+Input: nums = [2,2,2,2,2], target = 8
+Output: [[2,2,2,2]]
 ```
 
 **Constraints:**
-- The number of nodes in the list is `sz`
-- `1 <= sz <= 30`
-- `0 <= Node.val <= 100`
-- `1 <= n <= sz`
+- `1 <= nums.length <= 200`
+- `-10^9 <= nums[i] <= 10^9`
+- `-10^9 <= target <= 10^9`
+
+---
+
+## 11. Interval List Intersections (Medium)
+**LeetCode #986**
+
+You are given two lists of closed intervals, `firstList` and `secondList`, where `firstList[i] = [starti, endi]` and `secondList[j] = [startj, endj]`. Each list of intervals is pairwise disjoint and in sorted order.
+
+Return the intersection of these two interval lists.
+
+**Examples:**
+```
+Input: firstList = [[0,2],[5,10],[13,23],[24,25]], secondList = [[1,5],[8,12],[15,24],[25,26]]
+Output: [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
+
+Input: firstList = [[1,3],[5,9]], secondList = []
+Output: []
+```
+
+**Constraints:**
+- `0 <= firstList.length, secondList.length <= 1000`
+- `firstList.length + secondList.length >= 1`
+- `0 <= starti < endi <= 10^9`
+- Each list of intervals is pairwise disjoint and in sorted order
 

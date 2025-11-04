@@ -29,6 +29,22 @@ const CATEGORIES = [
     { name: 'Bit Manipulation', folder: 'bit-manipulation' },
 ];
 
+function countTotalProblems(categoryFolder: string, rootDir: string): number {
+    const categoryPath = join(rootDir, categoryFolder);
+
+    if (!existsSync(categoryPath)) {
+        return 0;
+    }
+
+    try {
+        const entries = readdirSync(categoryPath, { withFileTypes: true });
+        const problemFolders = entries.filter(e => e.isDirectory() && /^\d+-/.test(e.name));
+        return problemFolders.length;
+    } catch {
+        return 0;
+    }
+}
+
 function countSolvedProblems(categoryFolder: string, rootDir: string): number {
     const categoryPath = join(rootDir, categoryFolder);
 
@@ -38,7 +54,7 @@ function countSolvedProblems(categoryFolder: string, rootDir: string): number {
 
     try {
         const entries = readdirSync(categoryPath, { withFileTypes: true });
-        const problemFolders = entries.filter(e => e.isDirectory());
+        const problemFolders = entries.filter(e => e.isDirectory() && /^\d+-/.test(e.name));
 
         let solvedCount = 0;
         for (const folder of problemFolders) {
@@ -78,7 +94,7 @@ export async function updateCategoryProgress(categoryFolder: string, rootDir: st
     }
 
     const solved = countSolvedProblems(categoryFolder, rootDir);
-    const total = 10;
+    const total = countTotalProblems(categoryFolder, rootDir);
     const progressBar = generateProgressBar(solved, total);
     const newProgressLine = `## Progress: ${solved}/${total} ${progressBar}`;
 
@@ -108,7 +124,7 @@ export async function updateProgress(rootDir: string = process.cwd()): Promise<v
         name: cat.name,
         folder: cat.folder,
         solved: countSolvedProblems(cat.folder, rootDir),
-        total: 10,
+        total: countTotalProblems(cat.folder, rootDir),
     }));
 
     // Calculate totals
