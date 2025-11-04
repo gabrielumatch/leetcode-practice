@@ -4,6 +4,10 @@
 
 import { performance } from 'perf_hooks';
 
+interface GlobalWithGC {
+    gc?: () => void;
+}
+
 interface BenchmarkResult {
     name: string;
     avgTime: number;
@@ -117,8 +121,9 @@ export function measureMemory<T>(fn: () => T): {
     after: MemoryResult;
 } {
     // Force garbage collection if available
-    if (typeof (globalThis as any).gc === 'function') {
-        (globalThis as any).gc();
+    const g = globalThis as unknown as GlobalWithGC;
+    if (typeof g.gc === 'function') {
+        g.gc();
     }
 
     const before = process.memoryUsage();
