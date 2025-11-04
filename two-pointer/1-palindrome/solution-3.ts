@@ -1,10 +1,10 @@
 export const description = `
-**Filter with Regex + Loop**
+**Based on Solution 1** - Filter first approach
 
-Filter alphanumeric characters using regex, then check palindrome.
-- Uses \`filter()\` with regex test
-- Creates intermediate array
-- Faster than reverse, slower than inline validation
+**Changes:**
+- Uses \`filter(c => /[a-z0-9]/.test(c))\` instead of \`replace()\`
+- Creates filtered array, then compares indices
+- Avoids string concatenation from replace
 `;
 
 // Filter alphanumeric then check

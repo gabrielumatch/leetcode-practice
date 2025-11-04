@@ -1,10 +1,9 @@
 export const description = `
-**Two Pointers with Bitwise Operations**
+**Based on Solution 4** - Bitwise optimization
 
-Replaced arithmetic with bitwise operations for speed.
-- Uses bitwise OR \`| 32\` instead of \`+ 32\` for lowercase
-- Bitwise operations are faster (direct CPU instruction)
-- Still uses intermediate variables for validation
+**Changes:**
+- Replaced arithmetic \`+32\` with bitwise OR \`| 32\`
+- Bitwise operations are direct CPU instructions
 - ~19% faster than Solution 4
 `;
 

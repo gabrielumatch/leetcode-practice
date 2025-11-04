@@ -1,11 +1,11 @@
 export const description = `
-**Two Pointers with ASCII Validation**
+**Based on Solution 1** - First major optimization
 
-First major optimization: validate using ASCII codes instead of regex.
-- Uses \`charCodeAt()\` for ASCII validation
-- Helper functions for validation and case conversion
-- No intermediate strings/arrays
-- Arithmetic operation \`+32\` for lowercase conversion
+**Changes:**
+- Replaced regex/replace with ASCII code validation (\`charCodeAt()\`)
+- Inline validation during two-pointer traversal
+- No intermediate strings/arrays created
+- Uses arithmetic \`+32\` for lowercase conversion
 `;
 
 // Two Pointers with inline ASCII validation (most optimized)

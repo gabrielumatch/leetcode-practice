@@ -1,10 +1,10 @@
 export const description = `
-**Reverse and Compare**
+**Based on Solution 1** - Different approach
 
-Clean the string, reverse it, and compare with original.
+**Changes:**
+- Instead of two pointers, reverse entire string and compare
 - Uses \`split('').reverse().join('')\`
-- Creates two intermediate strings (clean + reversed)
-- Most readable but slowest due to array operations
+- More readable but creates extra intermediate array
 `;
 
 // Reverse and Compare

@@ -1,13 +1,11 @@
 export const description = `
-**Two Pointers - Maximum Optimization** 🏆
+**Based on Solution 5** - Remove intermediate variables
 
-Removed all intermediate variables for maximum speed.
-- Inline validation directly in \`if\` conditions
-- No \`isLeftValid\`/\`isRightValid\` variables
-- Bitwise OR for lowercase conversion
-- Fewer memory allocations and assignments
-- JIT compiler optimizes better with fully inline code
-- **40% faster than Solution 5!**
+**Changes:**
+- Eliminated \`isLeftValid\`/\`isRightValid\` variables
+- Inline all validation directly in \`if\` conditions
+- Fewer memory allocations, better JIT optimization
+- ~40% faster than Solution 5
 `;
 
 // Two Pointers without intermediate variables (extreme optimization attempt)
