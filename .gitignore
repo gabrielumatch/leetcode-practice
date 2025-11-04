@@ -1,0 +1,54 @@
+# Bun
+node_modules/
+.bun/
+bun.lockb
+*.bun
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
+*.ipr
+*.iws
+.cursor/*
+!.cursor/rules/
+
+# Testing
+coverage/
+*.lcov
+.nyc_output
+
+# Build
+dist/
+build/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary
+tmp/
+temp/
+*.tmp
