@@ -111,8 +111,8 @@ export async function runBenchmark(directory: string) {
             return Math.min(...times);
         });
 
-        // Create table with % vs fastest for each test case
-        const detailTable = benchDetails.map(({ name, perTestCase }) => {
+        // Create table with % vs fastest for each test case (sorted by rank)
+        const detailTableData = benchDetails.map(({ name, avgTime, perTestCase }) => {
             const row: Record<string, string> = { Solution: name };
             perTestCase.forEach((bench: { avgTime: number }, idx: number) => {
                 const fastest = fastestPerTC[idx];
@@ -127,9 +127,19 @@ export async function runBenchmark(directory: string) {
 
                 row[label] = diff === 0 ? '0% 🔥' : `+${diff.toFixed(0)}% ${symbol}`;
             });
-            return row;
+            return { ...row, avgTime, name };
         });
-        console.table(detailTable);
+
+        // Sort by avgTime (same as benchmark ranking)
+        const sortedDetailTable = detailTableData
+            .sort((a, b) => a.avgTime - b.avgTime)
+            .map((row, idx) => {
+                const rank = ['🥇', '🥈', '🥉'][idx] || `${idx + 1}`;
+                const { avgTime: _avgTime, name, ...rest } = row;
+                return { Rank: rank, Solution: name, ...rest };
+            });
+
+        console.table(sortedDetailTable);
 
         // Generate README.md
         const markdown = generateReadme(problemName, testResults, benchResults, benchDetails, testCases);

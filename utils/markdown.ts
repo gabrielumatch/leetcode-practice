@@ -61,8 +61,8 @@ ${benchResults.map((r, i) => {
 ## 📊 Detailed Breakdown (by test case)
 
 ${benchDetails && testCases ? `
-| Solution | ${testCases.map((tc, i) => tc.label || `TC${i + 1}`).join(' | ')} |
-|----------|${testCases.map(() => '----------').join('|')}|
+| Rank | Solution | ${testCases.map((tc, i) => tc.label || `TC${i + 1}`).join(' | ')} |
+|------|----------|${testCases.map(() => '----------').join('|')}|
 ${(() => {
     // Find fastest for each test case
         const fastestPerTC = testCases.map((_, tcIdx) => {
@@ -70,22 +70,26 @@ ${(() => {
             return Math.min(...times);
         });
 
-        return benchDetails.map(d => {
-            const values = d.perTestCase.map((b, idx) => {
-                const fastest = fastestPerTC[idx];
-                const diff = ((b.avgTime / fastest - 1) * 100);
+        // Sort by avgTime and add rank
+        return benchDetails
+            .sort((a, b) => a.avgTime - b.avgTime)
+            .map((d, idx) => {
+                const rank = ['🥇', '🥈', '🥉'][idx] || String(idx + 1);
+                const values = d.perTestCase.map((b, tcIdx) => {
+                    const fastest = fastestPerTC[tcIdx];
+                    const diff = ((b.avgTime / fastest - 1) * 100);
 
-                let symbol = '';
-                if (diff < 5) symbol = '🔥';
-                else if (diff < 50) symbol = '⚡';
-                else if (diff < 200) symbol = '📊';
-                else symbol = '🐌';
+                    let symbol = '';
+                    if (diff < 5) symbol = '🔥';
+                    else if (diff < 50) symbol = '⚡';
+                    else if (diff < 200) symbol = '📊';
+                    else symbol = '🐌';
 
-                return diff === 0 ? '0% 🔥' : `+${diff.toFixed(0)}% ${symbol}`;
-            }).join(' | ');
+                    return diff === 0 ? '0% 🔥' : '+' + diff.toFixed(0) + '% ' + symbol;
+                }).join(' | ');
 
-            return '| ' + d.name + ' | ' + values + ' |';
-        }).join('\n');
+                return '| ' + rank + ' | ' + d.name + ' | ' + values + ' |';
+            }).join('\n');
     })()}
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
