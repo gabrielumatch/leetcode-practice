@@ -1,12 +1,12 @@
 export const description = `
-**Based on Solution 2** - Eliminate else-if branching
+**Based on Solution 2** - Ternary for pointer update
 
 **Changes:**
-- Replaced \`else if\` with early \`continue\` statements
-- Reduces branch prediction complexity
-- Slightly more explicit control flow
+- Replaced \`else if\` with ternary operator for pointer update
+- Single-line conditional update reduces branching
+- More compact, potentially better instruction cache
 
-**Expected gain:** ~3-5% (simpler branching)
+**Hypothesis:** Ternary might be optimized better by JIT compiler
 `;
 
 export function solution(input: { numbers: number[]; target: number }): number[] {
@@ -22,13 +22,9 @@ export function solution(input: { numbers: number[]; target: number }): number[]
         if (sum === target) {
             return [left + 1, right + 1];
         }
-        
-        if (sum < target) {
-            left++;
-            continue;
-        }
-        
-        right--;
+
+        // Ternary for single-expression pointer update
+        sum < target ? left++ : right--;
     }
 
     return [];

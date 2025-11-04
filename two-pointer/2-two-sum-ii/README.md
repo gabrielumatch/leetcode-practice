@@ -1,26 +1,28 @@
 # 2 Two Sum Ii
 
-**Last Updated:** Nov 4, 2025, 12:16 AM
+**Last Updated:** Nov 4, 2025, 12:20 AM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 8/8 | 0.0034ms |
-| Solution 2 | ✅ Pass | 8/8 | 0.0024ms |
-| Solution 3 | ✅ Pass | 8/8 | 0.0036ms |
-| Solution 4 | ✅ Pass | 8/8 | 0.0021ms |
-| Solution 5 | ✅ Pass | 8/8 | 0.0019ms |
+| Solution 1 | ✅ Pass | 8/8 | 0.0044ms |
+| Solution 2 | ✅ Pass | 8/8 | 0.0029ms |
+| Solution 3 | ✅ Pass | 8/8 | 0.0045ms |
+| Solution 4 | ✅ Pass | 8/8 | 0.0028ms |
+| Solution 5 | ✅ Pass | 8/8 | 0.0029ms |
+| Solution 6 | ✅ Pass | 8/8 | 0.0056ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
 |------|----------|------------|-----|-----|-----|------------|
-| 🥇 | Solution 2 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0110ms | - |
-| 🥈 | Solution 4 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0116ms | +2.7% |
-| 🥉 | Solution 3 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0565ms | +3.9% |
-| 4 | Solution 1 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0248ms | +14.4% |
-| 5 | Solution 5 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0058ms | +20.0% |
+| 🥇 | Solution 1 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0121ms | - |
+| 🥈 | Solution 4 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0070ms | +5.2% |
+| 🥉 | Solution 3 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0056ms | +10.2% |
+| 4 | Solution 2 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0050ms | +13.9% |
+| 5 | Solution 5 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0100ms | +17.6% |
+| 6 | Solution 6 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0072ms | +85.9% |
 
 **Metrics:**
 - **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers)
@@ -32,11 +34,12 @@
 
 | Rank | Solution | Example 1 | Example 2 | Example 3 (negative) | Last two elements | First two elements | Mixed negative/positive | Middle elements | Large gaps |
 |------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
-| 🥇 | Solution 2 | +15% ⚡ | +4% 🔥 | +52% 📊 | +6% ⚡ | +7% ⚡ | +13% ⚡ | +8% ⚡ | 0% 🔥 |
-| 🥈 | Solution 4 | 0% 🔥 | +25% ⚡ | +38% ⚡ | +9% ⚡ | 0% 🔥 | +10% ⚡ | +24% ⚡ | +41% ⚡ |
-| 🥉 | Solution 3 | +29% ⚡ | +28% ⚡ | 0% 🔥 | +9% ⚡ | +2% 🔥 | +28% ⚡ | +3% 🔥 | +34% ⚡ |
-| 4 | Solution 1 | +53% 📊 | 0% 🔥 | +42% ⚡ | +17% ⚡ | +15% ⚡ | +25% ⚡ | 0% 🔥 | +61% 📊 |
-| 5 | Solution 5 | +7% ⚡ | +73% 📊 | +81% 📊 | 0% 🔥 | +1% 🔥 | 0% 🔥 | +6% ⚡ | +71% 📊 |
+| 🥇 | Solution 1 | +7% ⚡ | 0% 🔥 | +48% ⚡ | +28% ⚡ | 0% 🔥 | +22% ⚡ | +5% ⚡ | +39% ⚡ |
+| 🥈 | Solution 4 | 0% 🔥 | +18% ⚡ | 0% 🔥 | 0% 🔥 | +37% ⚡ | +3% 🔥 | 0% 🔥 | +28% ⚡ |
+| 🥉 | Solution 3 | +4% 🔥 | +20% ⚡ | +73% 📊 | +28% ⚡ | +30% ⚡ | +14% ⚡ | +31% ⚡ | +36% ⚡ |
+| 4 | Solution 2 | +23% ⚡ | +25% ⚡ | +68% 📊 | +8% ⚡ | +30% ⚡ | 0% 🔥 | +1% 🔥 | 0% 🔥 |
+| 5 | Solution 5 | +57% 📊 | +22% ⚡ | +98% 📊 | +24% ⚡ | +50% 📊 | +25% ⚡ | +28% ⚡ | +38% ⚡ |
+| 6 | Solution 6 | +61% 📊 | +33% ⚡ | +63% 📊 | +207% 🐌 | +62% 📊 | +54% 📊 | +59% 📊 | +74% 📊 |
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
@@ -103,23 +106,35 @@ The most straightforward solution for a sorted array:
 
 ### Solution 5 — [`solution-5.ts`](./solution-5.ts)
 
-**Based on Solution 2** - Eliminate else-if branching
+**Based on Solution 2** - Ternary for pointer update
 
 **Changes:**
-- Replaced `else if` with early `continue` statements
-- Reduces branch prediction complexity
-- Slightly more explicit control flow
+- Replaced `else if` with ternary operator for pointer update
+- Single-line conditional update reduces branching
+- More compact, potentially better instruction cache
 
-**Expected gain:** ~3-5% (simpler branching)
+**Hypothesis:** Ternary might be optimized better by JIT compiler
+
+
+### Solution 6 — [`solution-6.ts`](./solution-6.ts)
+
+**Binary Search approach** - Different algorithm
+
+**Changes:**
+- For each element, binary search for the complement
+- O(n log n) complexity vs O(n) for two pointers
+- Better cache locality for very large arrays (theory)
+
+**Hypothesis:** Will likely be slower, but testing algorithmic approach
 
 
 ## 📊 Conclusion
 
-**Winner:** Solution 2 🥇
+**Winner:** Solution 1 🥇
 
 - **Fastest:** 0.0000ms average
 - **Slowest:** 0.0000ms average
-- **Difference:** 20.0% slower
+- **Difference:** 85.9% slower
 
 ---
 
