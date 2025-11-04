@@ -1,26 +1,28 @@
 # 3 Reverse Only Letters
 
-**Last Updated:** Nov 4, 2025, 12:02 AM
+**Last Updated:** Nov 4, 2025, 12:05 AM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 10/10 | 0.0112ms |
-| Solution 2 | ✅ Pass | 10/10 | 0.0173ms |
-| Solution 3 | ✅ Pass | 10/10 | 0.0124ms |
-| Solution 4 | ✅ Pass | 10/10 | 0.0090ms |
-| Solution 5 | ✅ Pass | 10/10 | 0.0059ms |
+| Solution 1 | ✅ Pass | 10/10 | 0.0141ms |
+| Solution 2 | ✅ Pass | 10/10 | 0.0203ms |
+| Solution 3 | ✅ Pass | 10/10 | 0.0150ms |
+| Solution 4 | ✅ Pass | 10/10 | 0.0110ms |
+| Solution 5 | ✅ Pass | 10/10 | 0.0067ms |
+| Solution 6 | ✅ Pass | 10/10 | 0.0044ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
 |------|----------|------------|-----|-----|-----|------------|
-| 🥇 | Solution 5 | 0.0001ms | 0.0006ms | 0.0000ms | 0.7334ms | - |
-| 🥈 | Solution 1 | 0.0002ms | 0.0007ms | 0.0000ms | 2.4300ms | +25.8% |
-| 🥉 | Solution 2 | 0.0002ms | 0.0009ms | 0.0000ms | 1.3156ms | +75.3% |
-| 4 | Solution 4 | 0.0002ms | 0.0009ms | 0.0000ms | 1.1179ms | +78.4% |
-| 5 | Solution 3 | 0.0004ms | 0.0013ms | 0.0000ms | 1.1611ms | +189.7% |
+| 🥇 | Solution 6 | 0.0001ms | 0.0005ms | 0.0000ms | 1.2365ms | - |
+| 🥈 | Solution 5 | 0.0001ms | 0.0006ms | 0.0000ms | 1.5088ms | +9.7% |
+| 🥉 | Solution 1 | 0.0002ms | 0.0006ms | 0.0000ms | 1.0990ms | +33.2% |
+| 4 | Solution 4 | 0.0002ms | 0.0009ms | 0.0000ms | 1.5326ms | +94.9% |
+| 5 | Solution 2 | 0.0002ms | 0.0009ms | 0.0000ms | 1.0825ms | +104.2% |
+| 6 | Solution 3 | 0.0004ms | 0.0012ms | 0.0000ms | 1.1721ms | +228.2% |
 
 **Metrics:**
 - **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers)
@@ -32,11 +34,12 @@
 
 | Rank | Solution | Short (4 letters) | Medium (9 letters) | Long (15 letters) | No letters | Only letters | Single letter | Only numbers | Letters at edges | Letters in middle | Mixed alphanumeric |
 |------|----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
-| 🥇 | Solution 5 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 |
-| 🥈 | Solution 1 | +15% ⚡ | +52% 📊 | +30% ⚡ | +26% ⚡ | +59% 📊 | +16% ⚡ | +70% 📊 | +25% ⚡ | +52% 📊 | +16% ⚡ |
-| 🥉 | Solution 2 | +103% 📊 | +62% 📊 | +83% 📊 | +138% 📊 | +83% 📊 | +121% 📊 | +150% 📊 | +106% 📊 | +60% 📊 | +77% 📊 |
-| 4 | Solution 4 | +81% 📊 | +74% 📊 | +75% 📊 | +116% 📊 | +75% 📊 | +132% 📊 | +127% 📊 | +65% 📊 | +91% 📊 | +86% 📊 |
-| 5 | Solution 3 | +205% 🐌 | +232% 🐌 | +216% 🐌 | +46% ⚡ | +225% 🐌 | +324% 🐌 | +49% ⚡ | +139% 📊 | +70% 📊 | +181% 📊 |
+| 🥇 | Solution 6 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | +33% ⚡ | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 |
+| 🥈 | Solution 5 | +39% ⚡ | +20% ⚡ | +14% ⚡ | +4% 🔥 | 0% 🔥 | +30% ⚡ | +1% 🔥 | +4% 🔥 | +37% ⚡ | +19% ⚡ |
+| 🥉 | Solution 1 | +23% ⚡ | +45% ⚡ | +39% ⚡ | +31% ⚡ | +50% ⚡ | +37% ⚡ | +26% ⚡ | +26% ⚡ | +44% ⚡ | +26% ⚡ |
+| 4 | Solution 4 | +87% 📊 | +109% 📊 | +115% 📊 | +103% 📊 | +49% ⚡ | +193% 📊 | +171% 📊 | +100% 📊 | +60% 📊 | +89% 📊 |
+| 5 | Solution 2 | +77% 📊 | +118% 📊 | +128% 📊 | +136% 📊 | +41% ⚡ | +154% 📊 | +202% 🐌 | +75% 📊 | +110% 📊 | +97% 📊 |
+| 6 | Solution 3 | +226% 🐌 | +290% 🐌 | +288% 🐌 | +57% 📊 | +210% 🐌 | +424% 🐌 | +3% 🔥 | +140% 📊 | +78% 📊 | +207% 🐌 |
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
@@ -73,13 +76,24 @@ No description provided
 - Cache-friendly (128 bytes fits in L1 cache)
 
 
+### Solution 6 — [`solution-6.ts`](./solution-6.ts)
+
+**Based on Solution 5** - Temp variable swap optimization 🚀
+
+**Changes:**
+- Kept `split('')` + `join('')` (optimized by V8 engine)
+- Eliminated destructuring swap → temp variable (faster, no array allocation)
+- Lookup table still O(1) for letter validation
+- Less overhead in swap operation
+
+
 ## 📊 Conclusion
 
-**Winner:** Solution 5 🥇
+**Winner:** Solution 6 🥇
 
 - **Fastest:** 0.0001ms average
 - **Slowest:** 0.0004ms average
-- **Difference:** 189.7% slower
+- **Difference:** 228.2% slower
 
 ---
 
