@@ -1,3 +1,12 @@
+export const description = `
+**Filter with Regex + Loop**
+
+Filter alphanumeric characters using regex, then check palindrome.
+- Uses \`filter()\` with regex test
+- Creates intermediate array
+- Faster than reverse, slower than inline validation
+`;
+
 // Filter alphanumeric then check
 export function solution(s: string): boolean {
     // Filter only alphanumeric and convert to lowercase

@@ -1,3 +1,13 @@
+export const description = `
+**Two Pointers with ASCII Validation**
+
+First major optimization: validate using ASCII codes instead of regex.
+- Uses \`charCodeAt()\` for ASCII validation
+- Helper functions for validation and case conversion
+- No intermediate strings/arrays
+- Arithmetic operation \`+32\` for lowercase conversion
+`;
+
 // Two Pointers with inline ASCII validation (most optimized)
 export function solution(s: string): boolean {
     function isAlphanumeric(code: number): boolean {

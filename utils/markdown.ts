@@ -4,6 +4,7 @@ interface TestResult {
     passedCount: number;
     totalTests: number;
     avgTime: number;
+    description: string;
 }
 
 interface BenchResult {
@@ -32,9 +33,9 @@ export function generateReadme(
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-${testResults.map(r => 
-    `| ${r.name} | ${r.pass ? '✅ Pass' : '❌ Fail'} | ${r.passedCount}/${r.totalTests} | ${r.avgTime.toFixed(4)}ms |`
-).join('\n')}
+${testResults.map(r =>
+        `| ${r.name} | ${r.pass ? '✅ Pass' : '❌ Fail'} | ${r.passedCount}/${r.totalTests} | ${r.avgTime.toFixed(4)}ms |`
+    ).join('\n')}
 
 ## ⚡ Performance Benchmark
 
@@ -45,6 +46,12 @@ ${benchResults.map((r, i) => {
         const vsFastest = i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%`;
         return `| ${rank} | ${r.name} | ${r.avgTime.toFixed(4)}ms | ${r.minTime.toFixed(4)}ms | ${r.maxTime.toFixed(4)}ms | ${vsFastest} |`;
     }).join('\n')}
+
+## 📝 Solution Descriptions
+
+${testResults.map(r =>
+        `### ${r.name}\n${r.description}`
+    ).join('\n\n')}
 
 ## 📊 Conclusion
 
