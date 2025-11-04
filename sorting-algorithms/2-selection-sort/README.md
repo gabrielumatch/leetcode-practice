@@ -1,20 +1,20 @@
 # 2 Selection Sort
 
-**Last Updated:** Nov 4, 2025, 5:12 AM
+**Last Updated:** Nov 4, 2025, 5:27 AM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 5/5 | 0.0130ms |
-| Solution 2 | ✅ Pass | 5/5 | 0.8659ms |
+| Solution 1 | ✅ Pass | 5/5 | 0.0109ms |
+| Solution 2 | ✅ Pass | 5/5 | 0.9624ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
 |------|----------|------------|-----|-----|-----|------------|
-| 🥇 | Solution 1 | 0.000046ms | 0.000100ms | 0.000000ms | 1.609200ms | - |
-| 🥈 | Solution 2 | 0.000076ms | 0.001000ms | 0.000000ms | 6.694600ms | +65.29% |
+| 🥇 | Solution 1 | 0.000046ms | 0.000100ms | 0.000000ms | 0.936100ms | - |
+| 🥈 | Solution 2 | 0.000078ms | 0.001000ms | 0.000000ms | 9.551800ms | +68.05% |
 
 **Metrics:**
 - **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers) - used for ranking
@@ -28,8 +28,8 @@
 
 | Rank | Solution | Example 1 | Example 2 | With duplicates | Single element | Reverse order |
 |------|----------|----------|----------|----------|----------|----------|
-| 🥇 | Solution 1 | 0% 🔥 | 0% 🔥 | 0% 🔥 | +1% 🔥 | 0% 🔥 |
-| 🥈 | Solution 2 | +188% 📊 | +200% 📊 | +130% 📊 | 0% 🔥 | +199% 📊 |
+| 🥇 | Solution 1 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 |
+| 🥈 | Solution 2 | +205% 🐌 | +257% 🐌 | +169% 📊 | +15% ⚡ | +129% 📊 |
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
@@ -134,7 +134,7 @@ Array: [64, 25, 12, 22, 11]
 
 - **Fastest:** 0.0000ms average
 - **Slowest:** 0.0001ms average
-- **Difference:** 65.3% slower
+- **Difference:** 68.0% slower
 
 ---
 

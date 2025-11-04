@@ -1,6 +1,6 @@
 # Sorting Algorithms Problems
 
-## Progress: 7/10 ✅✅✅✅✅✅✅⬜⬜⬜
+## Progress: 10/10 ✅✅✅✅✅✅✅✅✅✅
 
 ---
 
