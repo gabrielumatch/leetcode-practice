@@ -1,7 +1,8 @@
 interface TestResult {
     name: string;
     pass: boolean;
-    tests: number;
+    passedCount: number;
+    totalTests: number;
     avgTime: number;
 }
 
@@ -31,9 +32,9 @@ export function generateReadme(
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-${testResults.map(r =>
-        `| ${r.name} | ${r.pass ? '✅ Pass' : '❌ Fail'} | ${r.tests}/${r.tests} | ${r.avgTime.toFixed(4)}ms |`
-    ).join('\n')}
+${testResults.map(r => 
+    `| ${r.name} | ${r.pass ? '✅ Pass' : '❌ Fail'} | ${r.passedCount}/${r.totalTests} | ${r.avgTime.toFixed(4)}ms |`
+).join('\n')}
 
 ## ⚡ Performance Benchmark
 

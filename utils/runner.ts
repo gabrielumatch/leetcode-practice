@@ -14,7 +14,15 @@ export async function runBenchmark(directory: string) {
     const solutionFiles = Array.from(glob.scanSync(directory)).sort();
 
     // Import test cases
-    const { testCases } = await import(path.join(directory, 'test-cases.ts'));
+    let testCases;
+    try {
+        const module = await import(path.join(directory, 'test-cases.ts'));
+        testCases = module.testCases;
+    } catch {
+        console.error('❌ Error: test-cases.ts not found in this directory');
+        console.error('💡 Create test-cases.ts with: export const testCases = [...]');
+        process.exit(1);
+    }
 
     // Dynamically import all solutions
     const solutions = await Promise.all(
@@ -35,20 +43,22 @@ export async function runBenchmark(directory: string) {
     console.log('🧪 TEST RESULTS');
     console.log('─'.repeat(80));
     const testResults = solutions.map(({ name, fn }) => {
-        const results = testCases.map((tc: { input: any; expected: any }) => {
+        const results = testCases.map((tc: { input: unknown; expected: unknown }) => {
             const { result, time } = measureTime(() => fn(tc.input));
             const pass = JSON.stringify(result) === JSON.stringify(tc.expected);
             return { pass, time };
         });
-        const allPass = results.every((r: { pass: boolean; time: number }) => r.pass);
+        const passedCount = results.filter((r: { pass: boolean; time: number }) => r.pass).length;
+        const totalTests = results.length;
+        const allPass = passedCount === totalTests;
         const avgTime = results.reduce((sum: number, r: { pass: boolean; time: number }) => sum + r.time, 0) / results.length;
-        return { name, pass: allPass, tests: results.length, avgTime };
+        return { name, pass: allPass, passedCount, totalTests, avgTime };
     });
 
     console.table(testResults.map(r => ({
         Solution: r.name,
         Status: r.pass ? '✅ Pass' : '❌ Fail',
-        Tests: `${r.tests}/${r.tests}`,
+        Tests: `${r.passedCount}/${r.totalTests}`,
         'Avg Time': `${r.avgTime.toFixed(4)}ms`,
     })));
 
