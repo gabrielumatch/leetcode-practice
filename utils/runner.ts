@@ -172,7 +172,9 @@ export async function runBenchmark(directory: string, options?: BenchmarkOptions
                 console.log(`   Running solution...\n`);
             }
 
-            const { result, time } = measureTime(() => fn(tc.input));
+            // Clone input array to avoid mutations affecting other solutions
+            const inputClone = Array.isArray(tc.input) ? [...tc.input as number[]] : tc.input;
+            const { result, time } = measureTime(() => fn(inputClone));
             const pass = JSON.stringify(result) === JSON.stringify(tc.expected);
 
             // Show detailed result for debug mode (single test case) - AFTER execution
@@ -241,7 +243,9 @@ export async function runBenchmark(directory: string, options?: BenchmarkOptions
                     const { fn } = passSolutions[solIdx];
                     // Use hrtime for nanosecond precision (performance.now() is ~0.1ms on Windows)
                     const start = process.hrtime.bigint();
-                    fn(tc.input);
+                    // Clone input array to avoid mutations affecting other solutions
+                    const inputClone = Array.isArray(tc.input) ? [...tc.input as number[]] : tc.input;
+                    fn(inputClone);
                     const end = process.hrtime.bigint();
                     const timeMs = Number(end - start) / 1_000_000; // Convert ns to ms
                     times[solIdx][tcIdx].push(timeMs);

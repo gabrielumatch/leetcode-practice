@@ -1,6 +1,6 @@
 # Two Pointers Problems
 
-## Progress: 3/10 ✅✅✅⬜⬜⬜⬜⬜⬜⬜
+## Progress: 4/10 ✅✅✅✅⬜⬜⬜⬜⬜⬜
 
 ---
 
