@@ -67,6 +67,31 @@ function generateProgressLine(category: CategoryProgress): string {
     return `- [${checkbox}] **[${category.name}](./${category.folder}/)** (${category.solved}/${category.total}) ${progressBar}`;
 }
 
+export async function updateCategoryProgress(categoryFolder: string, rootDir: string = process.cwd()): Promise<void> {
+    const categoryPath = join(rootDir, categoryFolder);
+    const readmePath = join(categoryPath, 'README.md');
+    
+    if (!existsSync(readmePath)) {
+        return;
+    }
+
+    const solved = countSolvedProblems(categoryFolder, rootDir);
+    const total = 10;
+    const progressBar = generateProgressBar(solved, total);
+    const newProgressLine = `## Progress: ${solved}/${total} ${progressBar}`;
+
+    // Read current README
+    let readme = readFileSync(readmePath, 'utf-8');
+
+    // Replace progress line
+    const progressRegex = /## Progress: \d+\/\d+ [✅⬜]+/;
+    
+    if (progressRegex.test(readme)) {
+        readme = readme.replace(progressRegex, newProgressLine);
+        writeFileSync(readmePath, readme, 'utf-8');
+    }
+}
+
 export async function updateProgress(rootDir: string = process.cwd()): Promise<void> {
     const readmePath = join(rootDir, 'README.md');
     
