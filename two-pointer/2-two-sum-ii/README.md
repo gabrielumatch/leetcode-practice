@@ -1,53 +1,55 @@
 # 2 Two Sum Ii
 
-**Last Updated:** Nov 4, 2025, 12:21 AM
+**Last Updated:** Nov 4, 2025, 12:28 AM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 8/8 | 0.0035ms |
-| Solution 2 | ✅ Pass | 8/8 | 0.0028ms |
-| Solution 3 | ✅ Pass | 8/8 | 0.0039ms |
-| Solution 4 | ✅ Pass | 8/8 | 0.0024ms |
-| Solution 5 | ✅ Pass | 8/8 | 0.0023ms |
-| Solution 6 | ✅ Pass | 8/8 | 0.0048ms |
+| Solution 1 | ✅ Pass | 8/8 | 0.0040ms |
+| Solution 2 | ✅ Pass | 8/8 | 0.0027ms |
+| Solution 3 | ✅ Pass | 8/8 | 0.0053ms |
+| Solution 4 | ✅ Pass | 8/8 | 0.0028ms |
+| Solution 5 | ✅ Pass | 8/8 | 0.0033ms |
+| Solution 6 | ✅ Pass | 8/8 | 0.0059ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
 |------|----------|------------|-----|-----|-----|------------|
-| 🥇 | Solution 3 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0130ms | - |
-| 🥈 | Solution 4 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0074ms | +10.0% |
-| 🥉 | Solution 5 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0063ms | +14.1% |
-| 4 | Solution 1 | 0.0000ms | 0.0001ms | 0.0000ms | 1.4033ms | +20.4% |
-| 5 | Solution 2 | 0.0000ms | 0.0001ms | 0.0000ms | 0.1905ms | +28.0% |
-| 6 | Solution 6 | 0.0000ms | 0.0001ms | 0.0000ms | 0.7376ms | +107.8% |
+| 🥇 | Solution 4 | 0.000025ms | 0.000100ms | 0.000000ms | 0.031100ms | - |
+| 🥈 | Solution 5 | 0.000025ms | 0.000100ms | 0.000000ms | 0.791600ms | +2.49% |
+| 🥉 | Solution 1 | 0.000026ms | 0.000100ms | 0.000000ms | 0.776600ms | +2.88% |
+| 4 | Solution 2 | 0.000027ms | 0.000100ms | 0.000000ms | 1.161400ms | +7.27% |
+| 5 | Solution 3 | 0.000033ms | 0.000100ms | 0.000000ms | 1.302500ms | +34.92% |
+| 6 | Solution 6 | 0.000042ms | 0.000100ms | 0.000000ms | 0.786200ms | +69.95% |
 
 **Metrics:**
-- **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers)
+- **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers) - used for ranking
 - **P95**: 95th percentile - 95% of runs were faster than this
 - **Min/Max**: Best and worst times across all runs
+
+**Timer:** Uses process.hrtime.bigint() for nanosecond precision (not limited by ~0.1ms Windows timer).
 
 ## 📊 Detailed Breakdown (by test case)
 
 
 | Rank | Solution | Example 1 | Example 2 | Example 3 (negative) | Last two elements | First two elements | Mixed negative/positive | Middle elements | Large gaps |
 |------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
-| 🥇 | Solution 3 | 0% 🔥 | 0% 🔥 | +38% ⚡ | +30% ⚡ | +3% 🔥 | 0% 🔥 | 0% 🔥 | +9% ⚡ |
-| 🥈 | Solution 4 | +5% ⚡ | +4% 🔥 | 0% 🔥 | 0% 🔥 | +46% ⚡ | +30% ⚡ | +13% ⚡ | 0% 🔥 |
-| 🥉 | Solution 5 | +23% ⚡ | +10% ⚡ | +28% ⚡ | +30% ⚡ | 0% 🔥 | +7% ⚡ | +4% 🔥 | +71% 📊 |
-| 4 | Solution 1 | +38% ⚡ | +14% ⚡ | +50% ⚡ | +102% 📊 | +9% ⚡ | +41% ⚡ | +18% ⚡ | +58% 📊 |
-| 5 | Solution 2 | +24% ⚡ | +9% ⚡ | +13% ⚡ | +3% 🔥 | +50% 📊 | +45% ⚡ | +37% ⚡ | +61% 📊 |
-| 6 | Solution 6 | +33% ⚡ | +40% ⚡ | +30% ⚡ | +258% 🐌 | +107% 📊 | +110% 📊 | +94% 📊 | +107% 📊 |
+| 🥇 | Solution 4 | +5% ⚡ | +16% ⚡ | +12% ⚡ | +10% ⚡ | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 |
+| 🥈 | Solution 5 | 0% 🔥 | +14% ⚡ | +4% 🔥 | 0% 🔥 | +50% ⚡ | +9% ⚡ | +8% ⚡ | +0% 🔥 |
+| 🥉 | Solution 1 | +18% ⚡ | 0% 🔥 | +29% ⚡ | +18% ⚡ | +4% 🔥 | +13% ⚡ | +10% ⚡ | +5% ⚡ |
+| 4 | Solution 2 | +15% ⚡ | +13% ⚡ | 0% 🔥 | +2% 🔥 | +20% ⚡ | +65% 📊 | +15% ⚡ | +15% ⚡ |
+| 5 | Solution 3 | +54% 📊 | +32% ⚡ | +22% ⚡ | +25% ⚡ | +20% ⚡ | +49% ⚡ | +54% 📊 | +104% 📊 |
+| 6 | Solution 6 | +41% ⚡ | +18% ⚡ | +75% 📊 | +163% 📊 | +48% ⚡ | +108% 📊 | +88% 📊 | +51% 📊 |
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
 **Methodology:**
 - **Round-robin execution**: Solutions alternate in each iteration (fairness!)
-- 10000 iterations per test case (all solutions face same conditions)
-- Comparisons use **trimmed mean** (95% best runs, removes outliers)
-- This eliminates GC pauses, cache effects, and context switch noise
+- 100000 iterations per test case (all solutions face same conditions)
+- **Trimmed mean** (95% best runs) balances stability and sensitivity
+- Nanosecond-precision timing via process.hrtime.bigint()
 
 
 ## 📝 Solution Descriptions
@@ -130,11 +132,11 @@ The most straightforward solution for a sorted array:
 
 ## 📊 Conclusion
 
-**Winner:** Solution 3 🥇
+**Winner:** Solution 4 🥇
 
 - **Fastest:** 0.0000ms average
 - **Slowest:** 0.0000ms average
-- **Difference:** 107.8% slower
+- **Difference:** 69.9% slower
 
 ---
 

@@ -1,5 +1,4 @@
 import { measureTime } from './performance';
-import { performance } from 'perf_hooks';
 import { generateReadme } from './markdown';
 import { updateProgress, updateCategoryProgress } from './update-progress';
 import { Glob, write } from 'bun';
@@ -85,14 +84,16 @@ export async function runBenchmark(directory: string) {
         for (let iter = 0; iter < iterations; iter++) {
             for (let tcIdx = 0; tcIdx < testCases.length; tcIdx++) {
                 const tc = testCases[tcIdx] as { input: unknown; expected: unknown };
-
+                
                 // Run each solution in sequence (round-robin)
                 for (let solIdx = 0; solIdx < passSolutions.length; solIdx++) {
                     const { fn } = passSolutions[solIdx];
-                    const start = performance.now();
+                    // Use hrtime for nanosecond precision (performance.now() is ~0.1ms on Windows)
+                    const start = process.hrtime.bigint();
                     fn(tc.input);
-                    const end = performance.now();
-                    times[solIdx][tcIdx].push(end - start);
+                    const end = process.hrtime.bigint();
+                    const timeMs = Number(end - start) / 1_000_000; // Convert ns to ms
+                    times[solIdx][tcIdx].push(timeMs);
                 }
             }
         }
@@ -123,7 +124,7 @@ export async function runBenchmark(directory: string) {
                 return { avgTime, trimmedAvg, minTime, maxTime, p50, p95, p99 };
             });
 
-            // Average across all test cases
+            // Use trimmed mean across all test cases for ranking (balance between stability and sensitivity)
             const avgTime = perTestCase.reduce((sum: number, b: { trimmedAvg: number }) => sum + b.trimmedAvg, 0) / perTestCase.length;
             const minTime = Math.min(...perTestCase.map((b: { minTime: number }) => b.minTime));
             const maxTime = Math.max(...perTestCase.map((b: { maxTime: number }) => b.maxTime));
@@ -141,11 +142,11 @@ export async function runBenchmark(directory: string) {
         console.table(benchResults.map((r, i) => ({
             Rank: ['🥇', '🥈', '🥉'][i] || `${i + 1}`,
             Solution: r.name,
-            'Avg (trim)': `${r.avgTime.toFixed(4)}ms`,
-            'P95': `${r.p95.toFixed(4)}ms`,
-            'Min': `${r.minTime.toFixed(4)}ms`,
-            'Max': `${r.maxTime.toFixed(4)}ms`,
-            'vs Fastest': i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%`,
+            'Avg (trim)': `${r.avgTime.toFixed(6)}ms`,
+            'P95': `${r.p95.toFixed(6)}ms`,
+            'Min': `${r.minTime.toFixed(6)}ms`,
+            'Max': `${r.maxTime.toFixed(6)}ms`,
+            'vs Fastest': i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(2)}%`,
         })));
 
         // Show per-test-case breakdown with % comparison

@@ -56,14 +56,16 @@ ${testResults.map(r =>
 |------|----------|------------|-----|-----|-----|------------|
 ${benchResults.map((r, i) => {
         const rank = ['🥇', '🥈', '🥉'][i] || `${i + 1}`;
-        const vsFastest = i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%`;
-        return `| ${rank} | ${r.name} | ${r.avgTime.toFixed(4)}ms | ${r.p95.toFixed(4)}ms | ${r.minTime.toFixed(4)}ms | ${r.maxTime.toFixed(4)}ms | ${vsFastest} |`;
+        const vsFastest = i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(2)}%`;
+        return `| ${rank} | ${r.name} | ${r.avgTime.toFixed(6)}ms | ${r.p95.toFixed(6)}ms | ${r.minTime.toFixed(6)}ms | ${r.maxTime.toFixed(6)}ms | ${vsFastest} |`;
     }).join('\n')}
 
 **Metrics:**
-- **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers)
+- **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers) - used for ranking
 - **P95**: 95th percentile - 95% of runs were faster than this
 - **Min/Max**: Best and worst times across all runs
+
+**Timer:** Uses process.hrtime.bigint() for nanosecond precision (not limited by ~0.1ms Windows timer).
 
 ## 📊 Detailed Breakdown (by test case)
 
@@ -114,9 +116,9 @@ ${(() => {
 
 **Methodology:**
 - **Round-robin execution**: Solutions alternate in each iteration (fairness!)
-- 10000 iterations per test case (all solutions face same conditions)
-- Comparisons use **trimmed mean** (95% best runs, removes outliers)
-- This eliminates GC pauses, cache effects, and context switch noise
+- 100000 iterations per test case (all solutions face same conditions)
+- **Trimmed mean** (95% best runs) balances stability and sensitivity
+- Nanosecond-precision timing via process.hrtime.bigint()
 ` : ''}
 
 ## 📝 Solution Descriptions
