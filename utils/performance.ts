@@ -11,8 +11,12 @@ interface GlobalWithGC {
 interface BenchmarkResult {
     name: string;
     avgTime: number;
+    trimmedAvg: number;
     minTime: number;
     maxTime: number;
+    p50: number;
+    p95: number;
+    p99: number;
     iterations: number;
     opsPerSecond: number;
 }
@@ -60,16 +64,35 @@ export function benchmark(
         times.push(end - start);
     }
 
+    // Sort times for percentile calculation
+    const sortedTimes = [...times].sort((a, b) => a - b);
+
+    // Calculate statistics
     const avgTime = times.reduce((a, b) => a + b, 0) / times.length;
-    const minTime = Math.min(...times);
-    const maxTime = Math.max(...times);
-    const opsPerSecond = 1000 / avgTime;
+    const minTime = sortedTimes[0];
+    const maxTime = sortedTimes[sortedTimes.length - 1];
+
+    // Remove outliers (top 5%) and calculate trimmed mean
+    const trimCount = Math.floor(sortedTimes.length * 0.05);
+    const trimmedTimes = sortedTimes.slice(0, sortedTimes.length - trimCount);
+    const trimmedAvg = trimmedTimes.reduce((a, b) => a + b, 0) / trimmedTimes.length;
+
+    // Percentiles
+    const p50 = sortedTimes[Math.floor(sortedTimes.length * 0.50)];
+    const p95 = sortedTimes[Math.floor(sortedTimes.length * 0.95)];
+    const p99 = sortedTimes[Math.floor(sortedTimes.length * 0.99)];
+
+    const opsPerSecond = 1000 / trimmedAvg; // Use trimmed avg for ops/sec
 
     return {
         name,
         avgTime,
+        trimmedAvg,
         minTime,
         maxTime,
+        p50,
+        p95,
+        p99,
         iterations,
         opsPerSecond,
     };

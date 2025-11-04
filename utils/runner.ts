@@ -76,28 +76,31 @@ export async function runBenchmark(directory: string) {
         const benchDetails = passSolutions.map(({ name, fn }) => {
             const allBenchmarks = testCases.map((tc: { input: unknown; expected: unknown }) => {
                 const input = typeof tc.input === 'string' ? tc.input.repeat(10) : tc.input;
-                return benchmark(name, () => fn(input), 1000);
+                return benchmark(name, () => fn(input), 10000);
             });
 
-            // Calculate average across all test cases
-            const avgTime = allBenchmarks.reduce((sum: number, b: { avgTime: number }) => sum + b.avgTime, 0) / allBenchmarks.length;
+            // Calculate average across all test cases (using trimmed mean to ignore outliers)
+            const avgTime = allBenchmarks.reduce((sum: number, b: { trimmedAvg: number }) => sum + b.trimmedAvg, 0) / allBenchmarks.length;
             const minTime = Math.min(...allBenchmarks.map((b: { minTime: number }) => b.minTime));
             const maxTime = Math.max(...allBenchmarks.map((b: { maxTime: number }) => b.maxTime));
+            const p95 = Math.max(...allBenchmarks.map((b: { p95: number }) => b.p95));
+            const p99 = Math.max(...allBenchmarks.map((b: { p99: number }) => b.p99));
 
-            return { name, avgTime, minTime, maxTime, perTestCase: allBenchmarks };
+            return { name, avgTime, minTime, maxTime, p95, p99, perTestCase: allBenchmarks };
         });
 
-        const benchResults = benchDetails.map(({ name, avgTime, minTime, maxTime }) => ({
-            name, avgTime, minTime, maxTime,
+        const benchResults = benchDetails.map(({ name, avgTime, minTime, maxTime, p95, p99 }) => ({
+            name, avgTime, minTime, maxTime, p95, p99,
         })).sort((a, b) => a.avgTime - b.avgTime);
 
         const fastest = benchResults[0];
         console.table(benchResults.map((r, i) => ({
             Rank: ['🥇', '🥈', '🥉'][i] || `${i + 1}`,
             Solution: r.name,
-            'Avg Time': `${r.avgTime.toFixed(4)}ms`,
-            'Min Time': `${r.minTime.toFixed(4)}ms`,
-            'Max Time': `${r.maxTime.toFixed(4)}ms`,
+            'Avg (trim)': `${r.avgTime.toFixed(4)}ms`,
+            'P95': `${r.p95.toFixed(4)}ms`,
+            'Min': `${r.minTime.toFixed(4)}ms`,
+            'Max': `${r.maxTime.toFixed(4)}ms`,
             'vs Fastest': i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%`,
         })));
 
@@ -105,18 +108,18 @@ export async function runBenchmark(directory: string) {
         console.log('\n📊 DETAILED BREAKDOWN (by test case)');
         console.log('─'.repeat(80));
 
-        // Find fastest solution for each test case
+        // Find fastest solution for each test case (using trimmed mean)
         const fastestPerTC = testCases.map((_: unknown, tcIdx: number) => {
-            const times = benchDetails.map(d => d.perTestCase[tcIdx].avgTime);
+            const times = benchDetails.map(d => d.perTestCase[tcIdx].trimmedAvg);
             return Math.min(...times);
         });
 
-        // Create table with % vs fastest for each test case (sorted by rank)
+        // Create table with % vs fastest for each test case (sorted by rank, using trimmed mean)
         const detailTableData = benchDetails.map(({ name, avgTime, perTestCase }) => {
             const row: Record<string, string> = { Solution: name };
-            perTestCase.forEach((bench: { avgTime: number }, idx: number) => {
+            perTestCase.forEach((bench: { trimmedAvg: number }, idx: number) => {
                 const fastest = fastestPerTC[idx];
-                const diff = ((bench.avgTime / fastest - 1) * 100);
+                const diff = ((bench.trimmedAvg / fastest - 1) * 100);
                 const label = (testCases[idx] as { label?: string }).label || `TC${idx + 1}`;
 
                 let symbol = '';

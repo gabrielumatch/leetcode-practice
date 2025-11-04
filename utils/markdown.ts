@@ -13,6 +13,8 @@ interface BenchResult {
     avgTime: number;
     minTime: number;
     maxTime: number;
+    p95: number;
+    p99: number;
 }
 
 interface BenchDetail {
@@ -50,13 +52,18 @@ ${testResults.map(r =>
 
 ## ⚡ Performance Benchmark
 
-| Rank | Solution | Avg Time | Min Time | Max Time | vs Fastest |
-|------|----------|----------|----------|----------|------------|
+| Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
+|------|----------|------------|-----|-----|-----|------------|
 ${benchResults.map((r, i) => {
         const rank = ['🥇', '🥈', '🥉'][i] || `${i + 1}`;
         const vsFastest = i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%`;
-        return `| ${rank} | ${r.name} | ${r.avgTime.toFixed(4)}ms | ${r.minTime.toFixed(4)}ms | ${r.maxTime.toFixed(4)}ms | ${vsFastest} |`;
+        return `| ${rank} | ${r.name} | ${r.avgTime.toFixed(4)}ms | ${r.p95.toFixed(4)}ms | ${r.minTime.toFixed(4)}ms | ${r.maxTime.toFixed(4)}ms | ${vsFastest} |`;
     }).join('\n')}
+
+**Metrics:**
+- **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers)
+- **P95**: 95th percentile - 95% of runs were faster than this
+- **Min/Max**: Best and worst times across all runs
 
 ## 📊 Detailed Breakdown (by test case)
 
@@ -94,7 +101,11 @@ ${(() => {
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
-*Each test case run with input repeated 10x, averaged over 1000 iterations*
+**Methodology:**
+- Each test case input is repeated 10x for realistic size
+- Each solution runs 10000 iterations per test case
+- Comparisons use **trimmed mean** (95% best runs, removes outliers)
+- This eliminates GC pauses and context switch noise
 ` : ''}
 
 ## 📝 Solution Descriptions
