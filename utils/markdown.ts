@@ -15,10 +15,20 @@ interface BenchResult {
     maxTime: number;
 }
 
+interface BenchDetail {
+    name: string;
+    avgTime: number;
+    minTime: number;
+    maxTime: number;
+    perTestCase: { avgTime: number }[];
+}
+
 export function generateReadme(
     problemName: string,
     testResults: TestResult[],
-    benchResults: BenchResult[]
+    benchResults: BenchResult[],
+    benchDetails?: BenchDetail[],
+    testCases?: { label?: string }[]
 ): string {
     const fastest = benchResults[0];
     const now = new Date().toLocaleString('en-US', {
@@ -47,6 +57,41 @@ ${benchResults.map((r, i) => {
         const vsFastest = i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%`;
         return `| ${rank} | ${r.name} | ${r.avgTime.toFixed(4)}ms | ${r.minTime.toFixed(4)}ms | ${r.maxTime.toFixed(4)}ms | ${vsFastest} |`;
     }).join('\n')}
+
+## 📊 Detailed Breakdown (by test case)
+
+${benchDetails && testCases ? `
+| Solution | ${testCases.map((tc, i) => tc.label || `TC${i + 1}`).join(' | ')} |
+|----------|${testCases.map(() => '----------').join('|')}|
+${(() => {
+    // Find fastest for each test case
+        const fastestPerTC = testCases.map((_, tcIdx) => {
+            const times = benchDetails.map(d => d.perTestCase[tcIdx].avgTime);
+            return Math.min(...times);
+        });
+
+        return benchDetails.map(d => {
+            const values = d.perTestCase.map((b, idx) => {
+                const fastest = fastestPerTC[idx];
+                const diff = ((b.avgTime / fastest - 1) * 100);
+
+                let symbol = '';
+                if (diff < 5) symbol = '🔥';
+                else if (diff < 50) symbol = '⚡';
+                else if (diff < 200) symbol = '📊';
+                else symbol = '🐌';
+
+                return diff === 0 ? '0% 🔥' : `+${diff.toFixed(0)}% ${symbol}`;
+            }).join(' | ');
+
+            return '| ' + d.name + ' | ' + values + ' |';
+        }).join('\n');
+    })()}
+
+**Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
+
+*Each test case run with input repeated 10x, averaged over 1000 iterations*
+` : ''}
 
 ## 📝 Solution Descriptions
 

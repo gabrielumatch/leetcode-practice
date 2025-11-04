@@ -1,36 +1,57 @@
 # 1 Palindrome
 
-**Last Updated:** Nov 3, 2025, 11:15 PM
+**Last Updated:** Nov 3, 2025, 11:26 PM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 8/8 | 0.0160ms |
-| Solution 10 | ✅ Pass | 8/8 | 0.0039ms |
-| Solution 2 | ✅ Pass | 8/8 | 0.0095ms |
-| Solution 3 | ✅ Pass | 8/8 | 0.0113ms |
-| Solution 4 | ✅ Pass | 8/8 | 0.0107ms |
-| Solution 5 | ✅ Pass | 8/8 | 0.0042ms |
-| Solution 6 | ✅ Pass | 8/8 | 0.0041ms |
-| Solution 7 | ✅ Pass | 8/8 | 0.0030ms |
-| Solution 8 | ✅ Pass | 8/8 | 0.0027ms |
-| Solution 9 | ✅ Pass | 8/8 | 0.0027ms |
+| Solution 1 | ✅ Pass | 8/8 | 0.0149ms |
+| Solution 10 | ✅ Pass | 8/8 | 0.0033ms |
+| Solution 2 | ✅ Pass | 8/8 | 0.0084ms |
+| Solution 3 | ✅ Pass | 8/8 | 0.0133ms |
+| Solution 4 | ✅ Pass | 8/8 | 0.0106ms |
+| Solution 5 | ✅ Pass | 8/8 | 0.0040ms |
+| Solution 6 | ✅ Pass | 8/8 | 0.0032ms |
+| Solution 7 | ✅ Pass | 8/8 | 0.0024ms |
+| Solution 8 | ✅ Pass | 8/8 | 0.0020ms |
+| Solution 9 | ✅ Pass | 8/8 | 0.0018ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg Time | Min Time | Max Time | vs Fastest |
 |------|----------|----------|----------|----------|------------|
-| 🥇 | Solution 9 | 0.0005ms | 0.0003ms | 0.0068ms | - |
-| 🥈 | Solution 7 | 0.0005ms | 0.0003ms | 0.0112ms | +0.3% |
-| 🥉 | Solution 10 | 0.0005ms | 0.0003ms | 0.0260ms | +1.7% |
-| 4 | Solution 8 | 0.0005ms | 0.0003ms | 0.0096ms | +3.9% |
-| 5 | Solution 6 | 0.0006ms | 0.0004ms | 0.0050ms | +23.5% |
-| 6 | Solution 5 | 0.0009ms | 0.0007ms | 0.0060ms | +100.7% |
-| 7 | Solution 4 | 0.0013ms | 0.0007ms | 0.0130ms | +169.3% |
-| 8 | Solution 1 | 0.0018ms | 0.0013ms | 0.0756ms | +280.3% |
-| 9 | Solution 2 | 0.0038ms | 0.0022ms | 0.0184ms | +715.4% |
-| 10 | Solution 3 | 0.0045ms | 0.0022ms | 1.9169ms | +875.2% |
+| 🥇 | Solution 8 | 0.0002ms | 0.0000ms | 0.0121ms | - |
+| 🥈 | Solution 9 | 0.0002ms | 0.0000ms | 0.0058ms | +4.2% |
+| 🥉 | Solution 7 | 0.0002ms | 0.0000ms | 0.0120ms | +5.2% |
+| 4 | Solution 10 | 0.0002ms | 0.0000ms | 0.0249ms | +5.5% |
+| 5 | Solution 6 | 0.0002ms | 0.0000ms | 0.0047ms | +11.6% |
+| 6 | Solution 5 | 0.0003ms | 0.0000ms | 0.0076ms | +85.5% |
+| 7 | Solution 4 | 0.0005ms | 0.0000ms | 0.0131ms | +162.4% |
+| 8 | Solution 1 | 0.0006ms | 0.0000ms | 0.0136ms | +239.0% |
+| 9 | Solution 2 | 0.0016ms | 0.0001ms | 0.0221ms | +813.5% |
+| 10 | Solution 3 | 0.0021ms | 0.0001ms | 1.0369ms | +1104.4% |
+
+## 📊 Detailed Breakdown (by test case)
+
+
+| Solution | Long (31 chars) | Medium (10 chars) | Single space | Long (28 chars) | Short (5 chars) | Short (5 chars) | Very short (2 chars) | Very short (2 chars) |
+|----------|----------|----------|----------|----------|----------|----------|----------|----------|
+| Solution 1 | +178% 📊 | +2351% 🐌 | +312% 🐌 | +284% 🐌 | +73% 📊 | +393% 🐌 | +330% 🐌 | +293% 🐌 |
+| Solution 10 | +10% ⚡ | +108% 📊 | +1% 🔥 | +2% 🔥 | +2% 🔥 | +6% ⚡ | 0% 🔥 | +36% ⚡ |
+| Solution 2 | +470% 🐌 | +10460% 🐌 | +597% 🐌 | +775% 🐌 | +886% 🐌 | +3916% 🐌 | +2774% 🐌 | +827% 🐌 |
+| Solution 3 | +1066% 🐌 | +6857% 🐌 | +378% 🐌 | +784% 🐌 | +898% 🐌 | +7846% 🐌 | +2184% 🐌 | +669% 🐌 |
+| Solution 4 | +154% 📊 | +309% 🐌 | +131% 📊 | +172% 📊 | +205% 🐌 | +170% 📊 | +239% 🐌 | +212% 🐌 |
+| Solution 5 | +89% 📊 | +142% 📊 | +44% ⚡ | +118% 📊 | +36% ⚡ | 0% 🔥 | +33% ⚡ | +32% ⚡ |
+| Solution 6 | +8% ⚡ | +107% 📊 | 0% 🔥 | +22% ⚡ | +4% 🔥 | +8% ⚡ | +37% ⚡ | +24% ⚡ |
+| Solution 7 | +14% ⚡ | 0% 🔥 | +20% ⚡ | 0% 🔥 | 0% 🔥 | +9% ⚡ | +28% ⚡ | 0% 🔥 |
+| Solution 8 | 0% 🔥 | +99% 📊 | +10% ⚡ | +0% 🔥 | +1% 🔥 | +9% ⚡ | +37% ⚡ | +2% 🔥 |
+| Solution 9 | +2% 🔥 | +165% 📊 | +9% ⚡ | +6% ⚡ | +2% 🔥 | +4% 🔥 | +39% ⚡ | +20% ⚡ |
+
+**Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
+
+*Each test case run with input repeated 10x, averaged over 1000 iterations*
+
 
 ## 📝 Solution Descriptions
 
@@ -141,11 +162,11 @@ Baseline approach: clean the string first, then use two pointers.
 
 ## 📊 Conclusion
 
-**Winner:** Solution 9 🥇
+**Winner:** Solution 8 🥇
 
-- **Fastest:** 0.0005ms average
-- **Slowest:** 0.0045ms average
-- **Difference:** 875.2% slower
+- **Fastest:** 0.0002ms average
+- **Slowest:** 0.0021ms average
+- **Difference:** 1104.4% slower
 
 ---
 
