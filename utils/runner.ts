@@ -4,7 +4,41 @@ import { updateProgress, updateCategoryProgress } from './update-progress';
 import { Glob, write } from 'bun';
 import path from 'path';
 
-export async function runBenchmark(directory: string) {
+interface BenchmarkOptions {
+    solutionNumber?: number;  // Ex: 2 para solution-2.ts
+    testCaseIndex?: number;   // Ex: 0 para o primeiro test case
+    skipBenchmark?: boolean;  // Pular benchmark de performance (útil para debug)
+}
+
+/**
+ * Parse command line arguments
+ * Supports: --solution 2, -s 2, --test-case 0, -t 0, --skip-benchmark
+ */
+function parseArgs(): BenchmarkOptions {
+    const args = process.argv.slice(2);
+    const options: BenchmarkOptions = {};
+
+    for (let i = 0; i < args.length; i++) {
+        const arg = args[i];
+        const nextArg = args[i + 1];
+
+        if ((arg === '--solution' || arg === '-s') && nextArg) {
+            options.solutionNumber = parseInt(nextArg, 10);
+            i++;
+        } else if ((arg === '--test-case' || arg === '-t') && nextArg) {
+            options.testCaseIndex = parseInt(nextArg, 10);
+            i++;
+        } else if (arg === '--skip-benchmark' || arg === '--skip') {
+            options.skipBenchmark = true;
+        }
+    }
+
+    return options;
+}
+
+export async function runBenchmark(directory: string, options?: BenchmarkOptions) {
+    // Se não passou opções, tenta parsear dos argumentos da linha de comando
+    const opts = options || parseArgs();
     // Get problem name from folder name
     const problemName = path.basename(directory).split('-').map(w =>
         w.charAt(0).toUpperCase() + w.slice(1)
@@ -26,7 +60,7 @@ export async function runBenchmark(directory: string) {
     }
 
     // Dynamically import all solutions
-    const solutions = await Promise.all(
+    let solutions = await Promise.all(
         solutionFiles.map(async (file) => {
             const module = await import(path.join(directory, file));
             const number = file.match(/solution-(\d+)\.ts/)?.[1] || '?';
@@ -35,20 +69,57 @@ export async function runBenchmark(directory: string) {
                 fn: module.solution,
                 description: module.description || 'No description provided',
                 file,
+                number: parseInt(number, 10),
             };
         })
     );
 
+    // Filter by solution number if specified
+    if (opts.solutionNumber !== undefined) {
+        solutions = solutions.filter(s => s.number === opts.solutionNumber);
+        if (solutions.length === 0) {
+            console.error(`❌ Solution ${opts.solutionNumber} not found`);
+            console.error(`💡 Available solutions: ${solutionFiles.map(f => f.match(/solution-(\d+)\.ts/)?.[1]).filter(Boolean).join(', ')}`);
+            process.exit(1);
+        }
+        console.log(`🔍 Filtered to Solution ${opts.solutionNumber}\n`);
+    }
+
     console.log(`\n🎯 ${problemName.toUpperCase()}`);
     console.log(`📁 Found ${solutions.length} solution(s)\n`);
+
+    // Filter test cases if specified
+    let filteredTestCases = testCases;
+    if (opts.testCaseIndex !== undefined) {
+        if (opts.testCaseIndex < 0 || opts.testCaseIndex >= testCases.length) {
+            console.error(`❌ Test case index ${opts.testCaseIndex} out of range`);
+            console.error(`💡 Available test cases: 0-${testCases.length - 1}`);
+            process.exit(1);
+        }
+        filteredTestCases = [testCases[opts.testCaseIndex]];
+        const tc = filteredTestCases[0] as { label?: string };
+        console.log(`🔍 Filtered to test case ${opts.testCaseIndex}: ${tc.label || `Test Case ${opts.testCaseIndex + 1}`}\n`);
+    }
 
     // Test all solutions
     console.log('🧪 TEST RESULTS');
     console.log('─'.repeat(80));
     const testResults = solutions.map(({ name, fn, description, file }) => {
-        const results = testCases.map((tc: { input: unknown; expected: unknown }) => {
+        const results = filteredTestCases.map((tc: { input: unknown; expected: unknown; label?: string }, idx: number) => {
             const { result, time } = measureTime(() => fn(tc.input));
             const pass = JSON.stringify(result) === JSON.stringify(tc.expected);
+
+            // Show detailed result for debug mode (single test case)
+            if (opts.testCaseIndex !== undefined) {
+                const tcLabel = (tc as { label?: string }).label || `Test Case ${idx + 1}`;
+                console.log(`\n📋 ${tcLabel}:`);
+                console.log(`   Input:    ${JSON.stringify(tc.input)}`);
+                console.log(`   Expected: ${JSON.stringify(tc.expected)}`);
+                console.log(`   Got:      ${JSON.stringify(result)}`);
+                console.log(`   Status:   ${pass ? '✅ PASS' : '❌ FAIL'}`);
+                console.log(`   Time:     ${time.toFixed(4)}ms`);
+            }
+
             return { pass, time };
         });
         const passedCount = results.filter((r: { pass: boolean; time: number }) => r.pass).length;
@@ -65,10 +136,10 @@ export async function runBenchmark(directory: string) {
         'Avg Time': `${r.avgTime.toFixed(4)}ms`,
     })));
 
-    // Benchmark all passing solutions
+    // Benchmark all passing solutions (skip if in debug mode)
     const passSolutions = solutions.filter((_, i) => testResults[i].pass);
 
-    if (passSolutions.length > 0) {
+    if (passSolutions.length > 0 && !opts.skipBenchmark) {
         console.log('\n⚡ PERFORMANCE BENCHMARK (Round-Robin)');
         console.log('─'.repeat(80));
 
@@ -84,7 +155,7 @@ export async function runBenchmark(directory: string) {
         for (let iter = 0; iter < iterations; iter++) {
             for (let tcIdx = 0; tcIdx < testCases.length; tcIdx++) {
                 const tc = testCases[tcIdx] as { input: unknown; expected: unknown };
-                
+
                 // Run each solution in sequence (round-robin)
                 for (let solIdx = 0; solIdx < passSolutions.length; solIdx++) {
                     const { fn } = passSolutions[solIdx];
@@ -202,17 +273,23 @@ export async function runBenchmark(directory: string) {
 
         console.table(sortedDetailTable);
 
-        // Generate README.md
-        const markdown = generateReadme(problemName, testResults, benchResults, benchDetails, testCases);
-        await write(path.join(directory, 'README.md'), markdown);
-        console.log('\n📝 README.md generated');
+        // Generate README.md (skip in debug mode)
+        if (!opts.testCaseIndex && !opts.solutionNumber) {
+            const markdown = generateReadme(problemName, testResults, benchResults, benchDetails, testCases);
+            await write(path.join(directory, 'README.md'), markdown);
+            console.log('\n📝 README.md generated');
+        }
+    } else if (opts.skipBenchmark) {
+        console.log('\n⏭️  Benchmark skipped (debug mode)');
     }
 
-    // Update progress in category and root READMEs
-    const rootDir = path.resolve(directory, '../..');
-    const categoryFolder = path.basename(path.resolve(directory, '..'));
-    await updateCategoryProgress(categoryFolder, rootDir);
-    await updateProgress(rootDir);
+    // Update progress in category and root READMEs (skip in debug mode)
+    if (!opts.testCaseIndex && !opts.solutionNumber) {
+        const rootDir = path.resolve(directory, '../..');
+        const categoryFolder = path.basename(path.resolve(directory, '..'));
+        await updateCategoryProgress(categoryFolder, rootDir);
+        await updateProgress(rootDir);
+    }
 
     console.log();
 }

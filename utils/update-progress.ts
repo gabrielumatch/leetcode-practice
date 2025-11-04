@@ -91,6 +91,7 @@ export async function updateCategoryProgress(categoryFolder: string, rootDir: st
     if (progressRegex.test(readme)) {
         readme = readme.replace(progressRegex, newProgressLine);
         writeFileSync(readmePath, readme, 'utf-8');
+        console.log(`📊 Category README.md updated: ${categoryFolder} (${solved}/${total})`);
     }
 }
 
@@ -134,6 +135,7 @@ export async function updateProgress(rootDir: string = process.cwd()): Promise<v
     if (progressRegex.test(readme)) {
         readme = readme.replace(progressRegex, newProgressSection + '\n');
         writeFileSync(readmePath, readme, 'utf-8');
+        console.log('📊 Root README.md updated');
     } else {
         console.warn('⚠️  Could not find progress section in README.md');
     }

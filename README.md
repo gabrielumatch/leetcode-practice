@@ -6,7 +6,7 @@
 
 ## 📋 Progress
 
-- [ ] **[Sorting Algorithms](./sorting-algorithms/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+- [ ] **[Sorting Algorithms](./sorting-algorithms/)** (1/10) ✅⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Two Pointers](./two-pointer/)** (3/10) ✅✅✅⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Sliding Window](./sliding-window/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Fast & Slow Pointers](./fast-slow-pointers/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
@@ -24,7 +24,7 @@
 - [ ] **[Greedy](./greedy/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Bit Manipulation](./bit-manipulation/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 
-**Total: 3/170** (1.76%)
+**Total: 4/170** (2.35%)
 
 ---
 
