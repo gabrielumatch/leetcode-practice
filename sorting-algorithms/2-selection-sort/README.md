@@ -1,4 +1,49 @@
-export const description = `
+# 2 Selection Sort
+
+**Last Updated:** Nov 4, 2025, 5:12 AM
+
+## 🧪 Test Results
+
+| Solution | Status | Tests | Avg Time |
+|----------|--------|-------|----------|
+| Solution 1 | ✅ Pass | 5/5 | 0.0130ms |
+| Solution 2 | ✅ Pass | 5/5 | 0.8659ms |
+
+## ⚡ Performance Benchmark
+
+| Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
+|------|----------|------------|-----|-----|-----|------------|
+| 🥇 | Solution 1 | 0.000046ms | 0.000100ms | 0.000000ms | 1.609200ms | - |
+| 🥈 | Solution 2 | 0.000076ms | 0.001000ms | 0.000000ms | 6.694600ms | +65.29% |
+
+**Metrics:**
+- **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers) - used for ranking
+- **P95**: 95th percentile - 95% of runs were faster than this
+- **Min/Max**: Best and worst times across all runs
+
+**Timer:** Uses process.hrtime.bigint() for nanosecond precision (not limited by ~0.1ms Windows timer).
+
+## 📊 Detailed Breakdown (by test case)
+
+
+| Rank | Solution | Example 1 | Example 2 | With duplicates | Single element | Reverse order |
+|------|----------|----------|----------|----------|----------|----------|
+| 🥇 | Solution 1 | 0% 🔥 | 0% 🔥 | 0% 🔥 | +1% 🔥 | 0% 🔥 |
+| 🥈 | Solution 2 | +188% 📊 | +200% 📊 | +130% 📊 | 0% 🔥 | +199% 📊 |
+
+**Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
+
+**Methodology:**
+- **Round-robin execution**: Solutions alternate in each iteration (fairness!)
+- 100000 iterations per test case (all solutions face same conditions)
+- **Trimmed mean** (95% best runs) balances stability and sensitivity
+- Nanosecond-precision timing via process.hrtime.bigint()
+
+
+## 📝 Solution Descriptions
+
+### Solution 1 — [`solution-1.ts`](./solution-1.ts)
+
 **Selection Sort - Versão Simples e Explicada**
 
 Selection Sort é um algoritmo de ordenação intuitivo e fácil de entender.
@@ -76,39 +121,21 @@ Array: [64, 25, 12, 22, 11]
 **Resumo:**
 - Use **Selection Sort** quando: trocar é caro (memória lenta), você quer poucas trocas
 - Use **Bubble Sort** quando: o array pode já estar ordenado, você precisa de estabilidade
-`;
 
-/**
- * Selection Sort - Versão mais simples e didática
- *
- * @param nums Array de números para ordenar
- * @returns Array ordenado (modifica o array original)
- */
-export function solution(nums: number[]): number[] {
-    // Criar uma cópia para não modificar o array original
-    const arr = [...nums];
-    const n = arr.length;
 
-    // Para cada posição do array (de 0 até n-2, pois a última já estará correta)
-    for (let i = 0; i < n - 1; i++) {
-        // Assumir que o menor elemento está na posição atual
-        let minIndex = i;
+### Solution 2 — [`solution-2.ts`](./solution-2.ts)
 
-        // Procurar o menor elemento na parte não ordenada (da posição i+1 até o final)
-        for (let j = i + 1; j < n; j++) {
-            // Se encontrou um elemento menor que o atual mínimo
-            if (arr[j] < arr[minIndex]) {
-                // Atualizar o índice do menor elemento
-                minIndex = j;
-            }
-        }
 
-        // Se o menor elemento não está na posição atual, trocar
-        if (minIndex !== i) {
-            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
-        }
-    }
 
-    return arr;
-}
 
+## 📊 Conclusion
+
+**Winner:** Solution 1 🥇
+
+- **Fastest:** 0.0000ms average
+- **Slowest:** 0.0001ms average
+- **Difference:** 65.3% slower
+
+---
+
+*Generated automatically by benchmarking suite*

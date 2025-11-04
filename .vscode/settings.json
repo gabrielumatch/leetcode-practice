@@ -1,0 +1,26 @@
+{
+  // ============================================
+  // DEBUG: Valores Inline (Mostrar valores das variáveis ao lado do código)
+  // ============================================
+  
+  // Habilita valores inline durante o debug
+  // Mostra os valores das variáveis ao lado delas no código (colorido)
+  "debug.inlineValues": true,
+  
+  // Mostra candidatos para breakpoints inline
+  "debug.showInlineBreakpointCandidates": true,
+  
+  // ============================================
+  // CORES: Personalização das cores dos valores inline
+  // ============================================
+  
+  "workbench.colorCustomizations": {
+    // Cor do texto dos valores inline durante debug
+    // Você pode personalizar essa cor conforme seu tema
+    "debugTokenExpression.string": "#ce9178",
+    "debugTokenExpression.number": "#b5cea8",
+    "debugTokenExpression.boolean": "#569cd6",
+    "debugTokenExpression.error": "#f48771"
+  }
+}
+
