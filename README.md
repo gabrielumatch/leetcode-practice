@@ -6,7 +6,7 @@
 
 ## 📋 Progress
 
-- [ ] **[Two Pointers](./two-pointer/)** (2/10) ✅✅⬜⬜⬜⬜⬜⬜⬜⬜
+- [ ] **[Two Pointers](./two-pointer/)** (3/10) ✅✅✅⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Sliding Window](./sliding-window/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Fast & Slow Pointers](./fast-slow-pointers/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Binary Search](./binary-search/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
@@ -22,7 +22,7 @@
 - [ ] **[Greedy](./greedy/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 - [ ] **[Bit Manipulation](./bit-manipulation/)** (0/10) ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 
-**Total: 2/150** (1.33%)
+**Total: 3/150** (2.00%)
 
 ---
 
