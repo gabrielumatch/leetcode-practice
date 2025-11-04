@@ -1,0 +1,11 @@
+/**
+ * K Closest Points to Origin
+ * LeetCode #973
+ */
+
+export const testCases = [
+    { input: { points: [[1, 3], [-2, 2]], k: 1 }, expected: [[-2, 2]], label: 'Example 1' },
+    { input: { points: [[3, 3], [5, -1], [-2, 4]], k: 2 }, expected: [[3, 3], [-2, 4]], label: 'Example 2' },
+    { input: { points: [[1, 1], [2, 2], [3, 3]], k: 2 }, expected: [[1, 1], [2, 2]], label: 'First two closest' },
+];
+
