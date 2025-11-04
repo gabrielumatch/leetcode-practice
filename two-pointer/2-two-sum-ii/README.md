@@ -1,28 +1,28 @@
 # 2 Two Sum Ii
 
-**Last Updated:** Nov 4, 2025, 12:20 AM
+**Last Updated:** Nov 4, 2025, 12:21 AM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 8/8 | 0.0044ms |
-| Solution 2 | ✅ Pass | 8/8 | 0.0029ms |
-| Solution 3 | ✅ Pass | 8/8 | 0.0045ms |
-| Solution 4 | ✅ Pass | 8/8 | 0.0028ms |
-| Solution 5 | ✅ Pass | 8/8 | 0.0029ms |
-| Solution 6 | ✅ Pass | 8/8 | 0.0056ms |
+| Solution 1 | ✅ Pass | 8/8 | 0.0035ms |
+| Solution 2 | ✅ Pass | 8/8 | 0.0028ms |
+| Solution 3 | ✅ Pass | 8/8 | 0.0039ms |
+| Solution 4 | ✅ Pass | 8/8 | 0.0024ms |
+| Solution 5 | ✅ Pass | 8/8 | 0.0023ms |
+| Solution 6 | ✅ Pass | 8/8 | 0.0048ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
 |------|----------|------------|-----|-----|-----|------------|
-| 🥇 | Solution 1 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0121ms | - |
-| 🥈 | Solution 4 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0070ms | +5.2% |
-| 🥉 | Solution 3 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0056ms | +10.2% |
-| 4 | Solution 2 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0050ms | +13.9% |
-| 5 | Solution 5 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0100ms | +17.6% |
-| 6 | Solution 6 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0072ms | +85.9% |
+| 🥇 | Solution 3 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0130ms | - |
+| 🥈 | Solution 4 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0074ms | +10.0% |
+| 🥉 | Solution 5 | 0.0000ms | 0.0001ms | 0.0000ms | 0.0063ms | +14.1% |
+| 4 | Solution 1 | 0.0000ms | 0.0001ms | 0.0000ms | 1.4033ms | +20.4% |
+| 5 | Solution 2 | 0.0000ms | 0.0001ms | 0.0000ms | 0.1905ms | +28.0% |
+| 6 | Solution 6 | 0.0000ms | 0.0001ms | 0.0000ms | 0.7376ms | +107.8% |
 
 **Metrics:**
 - **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers)
@@ -34,12 +34,12 @@
 
 | Rank | Solution | Example 1 | Example 2 | Example 3 (negative) | Last two elements | First two elements | Mixed negative/positive | Middle elements | Large gaps |
 |------|----------|----------|----------|----------|----------|----------|----------|----------|----------|
-| 🥇 | Solution 1 | +7% ⚡ | 0% 🔥 | +48% ⚡ | +28% ⚡ | 0% 🔥 | +22% ⚡ | +5% ⚡ | +39% ⚡ |
-| 🥈 | Solution 4 | 0% 🔥 | +18% ⚡ | 0% 🔥 | 0% 🔥 | +37% ⚡ | +3% 🔥 | 0% 🔥 | +28% ⚡ |
-| 🥉 | Solution 3 | +4% 🔥 | +20% ⚡ | +73% 📊 | +28% ⚡ | +30% ⚡ | +14% ⚡ | +31% ⚡ | +36% ⚡ |
-| 4 | Solution 2 | +23% ⚡ | +25% ⚡ | +68% 📊 | +8% ⚡ | +30% ⚡ | 0% 🔥 | +1% 🔥 | 0% 🔥 |
-| 5 | Solution 5 | +57% 📊 | +22% ⚡ | +98% 📊 | +24% ⚡ | +50% 📊 | +25% ⚡ | +28% ⚡ | +38% ⚡ |
-| 6 | Solution 6 | +61% 📊 | +33% ⚡ | +63% 📊 | +207% 🐌 | +62% 📊 | +54% 📊 | +59% 📊 | +74% 📊 |
+| 🥇 | Solution 3 | 0% 🔥 | 0% 🔥 | +38% ⚡ | +30% ⚡ | +3% 🔥 | 0% 🔥 | 0% 🔥 | +9% ⚡ |
+| 🥈 | Solution 4 | +5% ⚡ | +4% 🔥 | 0% 🔥 | 0% 🔥 | +46% ⚡ | +30% ⚡ | +13% ⚡ | 0% 🔥 |
+| 🥉 | Solution 5 | +23% ⚡ | +10% ⚡ | +28% ⚡ | +30% ⚡ | 0% 🔥 | +7% ⚡ | +4% 🔥 | +71% 📊 |
+| 4 | Solution 1 | +38% ⚡ | +14% ⚡ | +50% ⚡ | +102% 📊 | +9% ⚡ | +41% ⚡ | +18% ⚡ | +58% 📊 |
+| 5 | Solution 2 | +24% ⚡ | +9% ⚡ | +13% ⚡ | +3% 🔥 | +50% 📊 | +45% ⚡ | +37% ⚡ | +61% 📊 |
+| 6 | Solution 6 | +33% ⚡ | +40% ⚡ | +30% ⚡ | +258% 🐌 | +107% 📊 | +110% 📊 | +94% 📊 | +107% 📊 |
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
@@ -130,11 +130,11 @@ The most straightforward solution for a sorted array:
 
 ## 📊 Conclusion
 
-**Winner:** Solution 1 🥇
+**Winner:** Solution 3 🥇
 
 - **Fastest:** 0.0000ms average
 - **Slowest:** 0.0000ms average
-- **Difference:** 85.9% slower
+- **Difference:** 107.8% slower
 
 ---
 

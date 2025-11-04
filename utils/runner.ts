@@ -73,7 +73,7 @@ export async function runBenchmark(directory: string) {
         console.log('\n⚡ PERFORMANCE BENCHMARK (Round-Robin)');
         console.log('─'.repeat(80));
 
-        const iterations = 40000;
+        const iterations = 100000;
 
         // Initialize time storage: [solutionIdx][testCaseIdx][iterationIdx]
         const times: number[][][] = passSolutions.map(() =>
