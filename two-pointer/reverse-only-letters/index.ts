@@ -1,4 +1,4 @@
-import { compareImplementations, testCases as runTests } from '../../utils/performance';
+import { benchmark, measureTime } from '../../utils/performance';
 import { testCases } from './test-cases';
 import { Glob } from 'bun';
 import path from 'path';
@@ -24,20 +24,52 @@ const solutions = await Promise.all(
     })
 );
 
-console.log(`🎯 ${problemName.toUpperCase()}\n`);
-console.log(`Found ${solutions.length} solutions\n`);
+console.log(`\n🎯 ${problemName.toUpperCase()}`);
+console.log(`📁 Found ${solutions.length} solution(s)\n`);
 
-// Run tests on first solution
-console.log(`Testing ${solutions[0].name}:`);
-runTests(solutions[0].fn, testCases);
+// Test all solutions
+console.log('🧪 TEST RESULTS');
+console.log('─'.repeat(80));
+const testResults = solutions.map(({ name, fn }) => {
+    const results = testCases.map((tc) => {
+        const { result, time } = measureTime(() => fn(tc.input));
+        const pass = JSON.stringify(result) === JSON.stringify(tc.expected);
+        return { pass, time };
+    });
+    const allPass = results.every(r => r.pass);
+    const avgTime = results.reduce((sum, r) => sum + r.time, 0) / results.length;
+    return { name, pass: allPass, tests: results.length, avgTime };
+});
 
-// Benchmark all solutions
-const benchmarkInput = testCases[0].input.repeat(10);
-compareImplementations(
-    solutions.map(({ name, fn }) => ({
-        name,
-        fn: () => fn(benchmarkInput),
-    })),
-    5000
-);
+console.table(testResults.map(r => ({
+    Solution: r.name,
+    Status: r.pass ? '✅ Pass' : '❌ Fail',
+    Tests: `${r.tests}/${r.tests}`,
+    'Avg Time': `${r.avgTime.toFixed(4)}ms`,
+})));
+
+// Benchmark all passing solutions
+const passSolutions = solutions.filter((_, i) => testResults[i].pass);
+
+if (passSolutions.length > 0) {
+    console.log('\n⚡ PERFORMANCE BENCHMARK');
+    console.log('─'.repeat(80));
+
+    const benchmarkInput = testCases[0].input.repeat(10);
+    const benchResults = passSolutions.map(({ name, fn }) =>
+        benchmark(name, () => fn(benchmarkInput), 5000)
+    ).sort((a, b) => a.avgTime - b.avgTime);
+
+    const fastest = benchResults[0];
+    console.table(benchResults.map((r, i) => ({
+        Rank: ['🥇', '🥈', '🥉'][i] || `${i + 1}`,
+        Solution: r.name,
+        'Avg Time': `${r.avgTime.toFixed(4)}ms`,
+        'Min Time': `${r.minTime.toFixed(4)}ms`,
+        'Max Time': `${r.maxTime.toFixed(4)}ms`,
+        'vs Fastest': i === 0 ? '-' : `+${((r.avgTime / fastest.avgTime - 1) * 100).toFixed(1)}%`,
+    })));
+}
+
+console.log();
 
