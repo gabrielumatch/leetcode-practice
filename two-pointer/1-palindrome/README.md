@@ -1,28 +1,30 @@
 # 1 Palindrome
 
-**Last Updated:** Nov 3, 2025, 11:04 PM
+**Last Updated:** Nov 3, 2025, 11:06 PM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 8/8 | 0.0140ms |
-| Solution 2 | ✅ Pass | 8/8 | 0.0050ms |
-| Solution 3 | ✅ Pass | 8/8 | 0.0130ms |
-| Solution 4 | ✅ Pass | 8/8 | 0.0094ms |
-| Solution 5 | ✅ Pass | 8/8 | 0.0058ms |
-| Solution 6 | ✅ Pass | 8/8 | 0.0047ms |
+| Solution 1 | ✅ Pass | 8/8 | 0.0152ms |
+| Solution 2 | ✅ Pass | 8/8 | 0.0057ms |
+| Solution 3 | ✅ Pass | 8/8 | 0.0137ms |
+| Solution 4 | ✅ Pass | 8/8 | 0.0100ms |
+| Solution 5 | ✅ Pass | 8/8 | 0.0049ms |
+| Solution 6 | ✅ Pass | 8/8 | 0.0034ms |
+| Solution 7 | ✅ Pass | 8/8 | 0.0038ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg Time | Min Time | Max Time | vs Fastest |
 |------|----------|----------|----------|----------|------------|
-| 🥇 | Solution 6 | 0.0009ms | 0.0005ms | 0.0098ms | - |
-| 🥈 | Solution 5 | 0.0011ms | 0.0007ms | 0.0113ms | +25.0% |
-| 🥉 | Solution 4 | 0.0017ms | 0.0007ms | 0.0395ms | +95.5% |
-| 4 | Solution 1 | 0.0020ms | 0.0014ms | 0.0134ms | +135.1% |
-| 5 | Solution 2 | 0.0048ms | 0.0023ms | 0.0414ms | +457.7% |
-| 6 | Solution 3 | 0.0063ms | 0.0023ms | 1.2327ms | +630.7% |
+| 🥇 | Solution 7 | 0.0005ms | 0.0003ms | 0.0324ms | - |
+| 🥈 | Solution 6 | 0.0006ms | 0.0005ms | 0.0062ms | +28.9% |
+| 🥉 | Solution 5 | 0.0009ms | 0.0006ms | 0.0056ms | +95.6% |
+| 4 | Solution 4 | 0.0012ms | 0.0006ms | 0.0153ms | +152.5% |
+| 5 | Solution 1 | 0.0018ms | 0.0013ms | 0.0439ms | +280.1% |
+| 6 | Solution 2 | 0.0039ms | 0.0022ms | 0.0473ms | +730.8% |
+| 7 | Solution 3 | 0.0043ms | 0.0022ms | 1.1819ms | +830.0% |
 
 ## 📝 Solution Descriptions
 
@@ -91,13 +93,25 @@ Removed all intermediate variables for maximum speed.
 - **40% faster than Solution 5!**
 
 
+### Solution 7 — [`solution-7.ts`](./solution-7.ts)
+
+**Two Pointers with Lookup Table**
+
+Using a pre-computed lookup table for ASCII validation.
+- `Uint8Array[128]` marks valid ASCII codes with 1
+- Single array access instead of 3 comparisons
+- Bitwise OR for lowercase conversion
+- May be faster due to reduced branch predictions
+- Trade-off: initial setup cost vs validation speed
+
+
 ## 📊 Conclusion
 
-**Winner:** Solution 6 🥇
+**Winner:** Solution 7 🥇
 
-- **Fastest:** 0.0009ms average
-- **Slowest:** 0.0063ms average
-- **Difference:** 630.7% slower
+- **Fastest:** 0.0005ms average
+- **Slowest:** 0.0043ms average
+- **Difference:** 830.0% slower
 
 ---
 
