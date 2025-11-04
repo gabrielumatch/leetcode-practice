@@ -1,20 +1,20 @@
 # 4 Remove Duplicates From Sorted Array
 
-**Last Updated:** Nov 4, 2025, 6:06 AM
+**Last Updated:** Nov 4, 2025, 6:11 AM
 
 ## 🧪 Test Results
 
 | Solution | Status | Tests | Avg Time |
 |----------|--------|-------|----------|
-| Solution 1 | ✅ Pass | 4/4 | 0.0081ms |
-| Solution 2 | ✅ Pass | 4/4 | 0.0074ms |
+| Solution 1 | ✅ Pass | 4/4 | 0.0086ms |
+| Solution 2 | ✅ Pass | 4/4 | 0.0076ms |
 
 ## ⚡ Performance Benchmark
 
 | Rank | Solution | Avg (trim) | P95 | Min | Max | vs Fastest |
 |------|----------|------------|-----|-----|-----|------------|
-| 🥇 | Solution 1 | 0.000058ms | 0.000200ms | 0.000000ms | 1.452300ms | - |
-| 🥈 | Solution 2 | 0.000120ms | 0.000600ms | 0.000000ms | 1.412900ms | +107.27% |
+| 🥇 | Solution 1 | 0.000057ms | 0.000200ms | 0.000000ms | 1.101400ms | - |
+| 🥈 | Solution 2 | 0.000120ms | 0.000500ms | 0.000000ms | 1.202800ms | +111.72% |
 
 **Metrics:**
 - **Avg (trim)**: Average of fastest 95% runs (removes top 5% outliers) - used for ranking
@@ -29,7 +29,7 @@
 | Rank | Solution | Example 1 | Example 2 | Single element | All duplicates |
 |------|----------|----------|----------|----------|----------|
 | 🥇 | Solution 1 | 0% 🔥 | 0% 🔥 | 0% 🔥 | 0% 🔥 |
-| 🥈 | Solution 2 | +39% ⚡ | +138% 📊 | +161% 📊 | +214% 🐌 |
+| 🥈 | Solution 2 | +57% 📊 | +169% 📊 | +154% 📊 | +99% 📊 |
 
 **Legend:** 🔥 Fastest (< 5% diff) · ⚡ Good (< 50%) · 📊 OK (< 200%) · 🐌 Slow (≥ 200%)
 
@@ -90,7 +90,7 @@ No description provided
 
 - **Fastest:** 0.0001ms average
 - **Slowest:** 0.0001ms average
-- **Difference:** 107.3% slower
+- **Difference:** 111.7% slower
 
 ---
 
